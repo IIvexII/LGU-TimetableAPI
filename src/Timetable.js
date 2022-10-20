@@ -29,8 +29,6 @@ class Timetable {
    * @return: response<promise>
    */
   async fetch() {
-    console.log('fetching...');
-
     const response = await request(
       this.sessionId,
       this.baseUrl,
@@ -40,24 +38,60 @@ class Timetable {
 
     return response;
   }
-  /*
+  /* ----------------------------------------
+   * This methond parse the the HTML page to
+   * to look for timetable and return that
+   * in object form.
+   * ----------------------------------------
+   *
    * @params: no params required
    * @return: response<promise> {
    *  day: Array<[
    *    'startTime-endTime': {
-   *       subject: String,
-   *       roomNo: String,
-   *       teacher: String
+   *       subject?: String,
+   *       roomNo?: String,
+   *       teacher?: String,
+   *       error?: String
    *     }
    *  ]>
    * }
    */
   async get() {
+    // making a copy of class property 'rawTimetable'
     const rawTimetable = await this.rawTimetable;
-    const parsedTimetable = {};
 
     // Convert the raw timetable into dom like object
     const { document } = new JSDOM(rawTimetable.data).window;
+
+    const parsedTimetable = await this._parseTable(document);
+
+    if (Object.keys(parsedTimetable).length > 0) {
+      return parsedTimetable;
+    } else {
+      return {
+        error: 'Table not found',
+      };
+    }
+  }
+  /*------------------------------------------------------
+   * (private) This function is reponsible for parsing the dom
+   * and returning an object containg the whole table
+   * infomation.
+   *------------------------------------------------------
+   * @params: document<Document (dom.window.document)>
+   * @return: response<promise> {
+   *  day: Array<[
+   *    'startTime-endTime': {
+   *       subject?: String,
+   *       roomNo?: String,
+   *       teacher?: String,
+   *       error?: String
+   *     }
+   *  ]>
+   * }
+   */
+  async _parseTable(document) {
+    const parsedTimetable = [];
 
     // all table rows ignoring the first row
     const tableRows = document.querySelectorAll(
@@ -67,19 +101,28 @@ class Timetable {
     for (let row of tableRows) {
       const day = row.querySelector('th').textContent;
       const classElms = row.querySelectorAll('td');
-      console.log(day);
 
       const classes = [];
       for (let singleClass of classElms) {
-        classes.push({
-          subject: singleClass?.querySelector('span:nth-child(1)')?.textContent,
-          roomNo: singleClass?.querySelector('span:nth-child(3)')?.textContent,
-          tracher: singleClass?.querySelector('span:nth-child(5)')?.textContent,
-        });
-      }
-      parsedTimetable[day] = classes;
-    }
+        const subject =
+          singleClass?.querySelector('span:nth-child(1)')?.textContent;
+        const roomNo =
+          singleClass?.querySelector('span:nth-child(3)')?.textContent;
+        const teacher =
+          singleClass?.querySelector('span:nth-child(5)')?.textContent;
 
+        if (subject && roomNo && teacher) {
+          classes.push({
+            subject,
+            roomNo,
+            teacher,
+          });
+        }
+      }
+      if (classes.length > 0) {
+        parsedTimetable[day] = classes;
+      }
+    }
     return parsedTimetable;
   }
 }
