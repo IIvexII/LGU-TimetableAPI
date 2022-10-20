@@ -134,6 +134,8 @@ class Timetable {
       }
       if (classes.length > 0) {
         parsedTimetable[day] = classes;
+      } else {
+        parsedTimetable[day] = [{ info: "Yippi! It's holiday <3" }];
       }
     }
     return parsedTimetable;
