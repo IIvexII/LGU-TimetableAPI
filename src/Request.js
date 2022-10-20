@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-function request(sessionId, baseUrl, path, params) {
+async function request(sessionId, baseUrl, path, params) {
   const url = `${baseUrl}/${path}`;
 
   // configuration is specific for the timetable.edu.pk
@@ -32,7 +32,7 @@ function request(sessionId, baseUrl, path, params) {
     },
   };
 
-  return axios.post(url, params, config);
+  return await axios.post(url, params, config);
 }
 
 module.exports = request;
