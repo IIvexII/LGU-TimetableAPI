@@ -73,6 +73,7 @@ class Timetable {
       };
     }
   }
+
   /*------------------------------------------------------
    * (private) This function is reponsible for parsing the dom
    * and returning an object containg the whole table
@@ -80,14 +81,14 @@ class Timetable {
    *------------------------------------------------------
    * @params: document<Document (dom.window.document)>
    * @return: response<promise> {
-   *  day: Array<[
-   *    'startTime-endTime': {
-   *       subject?: String,
-   *       roomNo?: String,
-   *       teacher?: String,
-   *       error?: String
-   *     }
-   *  ]>
+   *  day: Array<{
+   *    startTime: Number,
+   *    endTime: Number,
+   *    subject?: String,
+   *    roomNo?: String,
+   *    teacher?: String,
+   *    error?: String
+   *  }>
    * }
    */
   async _parseTable(document) {
@@ -101,18 +102,30 @@ class Timetable {
     for (let row of tableRows) {
       const day = row.querySelector('th').textContent;
       const classElms = row.querySelectorAll('td');
-
       const classes = [];
+
+      let previousTime = { hours: 8, minutes: 0 },
+        startTime,
+        endTime;
+
       for (let singleClass of classElms) {
+        // Extracting data from element
         const subject =
           singleClass?.querySelector('span:nth-child(1)')?.textContent;
         const roomNo =
           singleClass?.querySelector('span:nth-child(3)')?.textContent;
         const teacher =
           singleClass?.querySelector('span:nth-child(5)')?.textContent;
+        const colSpan = singleClass?.getAttribute('colspan');
+
+        startTime = previousTime;
+        endTime = this._calculateTime(colSpan, startTime);
+        previousTime = endTime;
 
         if (subject && roomNo && teacher) {
           classes.push({
+            startTime,
+            endTime,
             subject,
             roomNo,
             teacher,
@@ -124,6 +137,36 @@ class Timetable {
       }
     }
     return parsedTimetable;
+  }
+
+  /* ------------------------------------
+   * This method calculates time using
+   * the number of sessions and previus
+   * time.
+   * Note: each will be equal to 30 and
+   * previousTime has default value of
+   * 8:00.
+   * ------------------------------------
+   *
+   * @params: no. of sessions(Number), previous time(Object)
+   * @return: Object<{
+   *    hours: Number,
+   *    minutes: Number
+   *  }>
+   */
+  _calculateTime(sessions, previousTime = { hours: 8, minutes: 0 }) {
+    const totalMinutes =
+      30 * sessions + previousTime.hours * 60 + previousTime.minutes;
+
+    let hours = Math.trunc(totalMinutes / 60);
+    let minutes = totalMinutes % 60;
+
+    const time = {
+      hours,
+      minutes,
+    };
+
+    return time;
   }
 }
 

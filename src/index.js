@@ -9,6 +9,7 @@ const data = {
 
 const timeTable = new Timetable(sessionId, data);
 
+// console.log(timeTable._calculateTime(4, { hours: 8, minutes: 30 }));
 timeTable.get().then((res) => {
-  console.log(res);
+  console.log(res.Monday);
 });
