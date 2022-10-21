@@ -1,9 +1,10 @@
 const { JSDOM } = require('jsdom');
-const request = require('./Request');
+const { Sync } = require('./Sync');
+const { calculateTime } = require('./utils');
 
 // This object Contain the paths of timetable.edu.pk
-const PATHS = {
-  semesterTimetable: 'Semesters/semester_info/SEMESTER_TIMETABLE.php',
+const paths = {
+  STT: 'Semesters/semester_info/SEMESTER_TIMETABLE.php',
 };
 
 /*
@@ -14,34 +15,22 @@ class Timetable {
   /*
    * constructor of Timetable
    *
-   * @params: sessionId and data(to send)
+   * @params: sessionId and params(to send)
    */
-  constructor(sessionId, data) {
+  constructor(sessionId, params) {
+    this.sync = new Sync(sessionId);
+
     this.baseUrl = 'https://timetable.lgu.edu.pk';
 
-    this.sessionId = sessionId;
-    this.data = data;
-
-    this.rawTimetable = (async () => await this.fetch())();
-  }
-  /*
-   * @params: no params required
-   * @return: response<promise>
-   */
-  async fetch() {
-    const response = await request(
-      this.sessionId,
-      this.baseUrl,
-      PATHS.semesterTimetable,
-      this.data,
-    );
-
-    return response;
+    // Fetch the table from website
+    this.rawTimetable = (async () => {
+      return await this.sync.fetch(paths.STT, params);
+    })();
   }
   /* ----------------------------------------
    * This methond parse the the HTML page to
-   * to look for timetable and return that
-   * in object form.
+   * look  for  timetable and  return  it as
+   * object .
    * ----------------------------------------
    *
    * @params: no params required
@@ -63,15 +52,28 @@ class Timetable {
     // Convert the raw timetable into dom like object
     const { document } = new JSDOM(rawTimetable.data).window;
 
-    const parsedTimetable = await this._parseTable(document);
+    if (this._isLoggedin(document)) {
+      const parsedTimetable = this._parseTable(document);
 
-    if (Object.keys(parsedTimetable).length > 0) {
-      return parsedTimetable;
+      if (Object.keys(parsedTimetable).length > 0) {
+        return parsedTimetable;
+      } else {
+        return {
+          error: 'Table not found',
+        };
+      }
     } else {
       return {
-        error: 'Table not found',
+        error: 'Please login and provide the session id',
       };
     }
+  }
+
+  _isLoggedin(document) {
+    if (document.querySelector('form legend')?.textContent) {
+      return false;
+    }
+    return true;
   }
 
   /*------------------------------------------------------
@@ -91,7 +93,7 @@ class Timetable {
    *  }>
    * }
    */
-  async _parseTable(document) {
+  _parseTable(document) {
     const parsedTimetable = [];
 
     // all table rows ignoring the first row
@@ -118,10 +120,12 @@ class Timetable {
           singleClass?.querySelector('span:nth-child(5)')?.textContent;
         const colSpan = singleClass?.getAttribute('colspan');
 
+        // time calculations
         startTime = previousTime;
-        endTime = this._calculateTime(colSpan, startTime);
+        endTime = calculateTime(colSpan, startTime);
         previousTime = endTime;
 
+        // push the class details in classes if all those exist.
         if (subject && roomNo && teacher) {
           classes.push({
             startTime,
@@ -132,6 +136,7 @@ class Timetable {
           });
         }
       }
+      // store the class in timetable if it has any class for that day.
       if (classes.length > 0) {
         parsedTimetable[day] = classes;
       } else {
@@ -139,36 +144,6 @@ class Timetable {
       }
     }
     return parsedTimetable;
-  }
-
-  /* ------------------------------------
-   * This method calculates time using
-   * the number of sessions and previus
-   * time.
-   * Note: each will be equal to 30 and
-   * previousTime has default value of
-   * 8:00.
-   * ------------------------------------
-   *
-   * @params: no. of sessions(Number), previous time(Object)
-   * @return: Object<{
-   *    hours: Number,
-   *    minutes: Number
-   *  }>
-   */
-  _calculateTime(sessions, previousTime = { hours: 8, minutes: 0 }) {
-    const totalMinutes =
-      30 * sessions + previousTime.hours * 60 + previousTime.minutes;
-
-    let hours = Math.trunc(totalMinutes / 60);
-    let minutes = totalMinutes % 60;
-
-    const time = {
-      hours,
-      minutes,
-    };
-
-    return time;
   }
 }
 
