@@ -8,7 +8,7 @@
  */
 const paths = {
   STT: 'Semesters/semester_info/SEMESTER_TIMETABLE.php',
-  SEM: '/Semesters/ajax.php',
+  SEM: 'Semesters/ajax.php',
 };
 
 module.exports = paths;
