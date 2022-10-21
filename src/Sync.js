@@ -38,7 +38,6 @@ class Sync {
         Cookie: `PHPSESSID=${this.sessionId}`,
         // Remove the https:// from the baseurl
         Host: baseUrl.slice(8),
-        'Content-Length': '65',
         'Cache-Control': 'max-age=0',
         'Sec-Ch-Ua': '"Not;A=Brand";v="99", "Chromium";v="106"',
         'Sec-Ch-Ua-Mobile': '?0',
