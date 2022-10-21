@@ -1,4 +1,4 @@
-const Timetable = require('./Timetable');
+const Timetable = require('./modules/Timetable');
 
 const sessionId = 'jjedrbhv59rmhc871qs1i7gv97';
 

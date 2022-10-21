@@ -1,6 +1,6 @@
 const { JSDOM } = require('jsdom');
 
-const paths = require('./Enums/paths');
+const paths = require('../Enums/paths');
 const { Sync } = require('./Sync');
 
 class Validator {

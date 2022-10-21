@@ -1,8 +1,8 @@
 const { JSDOM } = require('jsdom');
 
 const { Sync } = require('./Sync');
-const { calculateTime } = require('./utils');
-const paths = require('./Enums/paths');
+const { calculateTime } = require('../utils/utils');
+const paths = require('../Enums/paths');
 
 /*
  * This class is responsible for fetching
