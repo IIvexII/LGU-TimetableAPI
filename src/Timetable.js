@@ -2,7 +2,7 @@ const { JSDOM } = require('jsdom');
 
 const { Sync } = require('./Sync');
 const { calculateTime } = require('./utils');
-const paths = require('./paths');
+const paths = require('./Enums/paths');
 
 /*
  * This class is responsible for fetching
