@@ -4,7 +4,6 @@ const { Sync } = require('./Sync');
 const { calculateTime } = require('../utils/utils');
 const { paths } = require('../Enums');
 
-
 /*
  * This class is responsible for fetching
  * data from timetable.lgu.edu.pk
@@ -13,10 +12,15 @@ class Timetable {
   /*
    * constructor of Timetable
    *
-   * @params: sessionId and params(to send)
+   * @params: params<{
+   *    session: string,
+   *    semester: string,
+   *    program: string,
+   *    section: string
+   *  }>
    */
-  constructor(sessionId, params) {
-    this.sync = new Sync(sessionId);
+  constructor(params) {
+    this.sync = new Sync(params.session);
 
     this.baseUrl = 'https://timetable.lgu.edu.pk';
 

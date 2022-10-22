@@ -1,16 +1,28 @@
+const express = require('express');
 const Timetable = require('./modules/Timetable');
-const { Params, Session } = require('./validators');
+// Middlewares
+const { Session } = require('./middlewares');
+const { Params } = require('./middlewares/Params');
 
-const sessionId = 'jjedrbhv59rmhc871qs1i7gv97';
+const app = express();
 
-const data = {
-  semester: '5th Semester Fall-2022 / Fall-2020',
-  program: '1',
-  section: '10',
-};
+/* ------------------------------------
+ * Route: '/'
+ *
+ * Middlewares:
+ *  1. Session.validate
+ *  2. Params.validate
+ *
+ * Query:
+ *  1. session  2. semester,
+ *  3. program  4. section
+ * ------------------------------------
+ */
+app.get('/', Session.validate, Params.validate, async (req, res) => {
+  const timeTable = new Timetable(req.data);
+  res.send({ ...(await timeTable.get()) });
+});
 
-const timeTable = new Timetable(sessionId, data);
-
-timeTable.get().then((res) => {
-  console.log(res);
+app.listen(3000, () => {
+  console.log('Listening on port 3000...');
 });

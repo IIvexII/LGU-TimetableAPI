@@ -4,38 +4,63 @@ const paths = require('../Enums/paths');
 const { Sync } = require('../modules/Sync');
 
 class Params {
+  static _error = {
+    error: 'Please Provide all the parameters.',
+    parameter: {
+      session: 'required',
+      semester: 'required',
+      program: 'required',
+      section: 'required',
+    },
+  };
+
   /* --------------------------------------------
    * Validate the data that is supposed to be sent
    * to the webite
    * ---------------------------------------------
    *
-   * @params: data<{
-   *  semester: String,
-   *  program: String,
-   *  section: String,
-   * }>
-   * @return: isValid<Boolean>
+   * @params: req, res, next
+   * @return: Response || undefined
    *
    */
-  static async validate(sessionId, { semester, program, section }) {
-    const sync = new Sync(sessionId);
+  static async validate(req, res, next) {
+    // prepare parameters
+    const data = {
+      session: req.query.session,
+      semester: req.query.semester,
+      program: req.query.program,
+      section: req.query.section,
+    };
+    req.data = data;
+
+    if (!data.session || !data.semester || !data.program || !data.section) {
+      return res.status(400).send(Params._error);
+    }
+    const sync = new Sync(data.session);
     // This response contains programs which will
     // be used to check semesters and programs
-    const semesterResponse = await sync.fetch(paths.SEM, { semester });
+    const semesterResponse = await sync.fetch(paths.SEM, {
+      semester: data.semester,
+    });
 
     // This response contains the all sections
     // with the information provided
     const sectionResponse = await sync.fetch(paths.SEM, {
-      semester,
-      program,
+      semester: data.semester,
+      program: data.program,
     });
 
-    const isSem = await this._isSemester(semesterResponse.data);
-    const isProg = await this._isProgram(semesterResponse.data, program);
-    const isSec = await this._isSection(sectionResponse.data, section);
+    const isSem = await Params._isSemester(semesterResponse.data);
+    const isProg = await Params._isProgram(semesterResponse.data, data.program);
+    const isSec = await Params._isSection(sectionResponse.data, data.section);
 
     const isValid = isSem && isProg && isSec;
-    return isValid;
+
+    if (isValid) {
+      next();
+    } else {
+      return res.status(400).send(Params._error);
+    }
   }
   /* --------------------------------------------
    * This method is used to see if a semester
