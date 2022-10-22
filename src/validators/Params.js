@@ -1,12 +1,9 @@
 const { JSDOM } = require('jsdom');
 
 const paths = require('../Enums/paths');
-const { Sync } = require('./Sync');
+const { Sync } = require('../modules/Sync');
 
-class Validator {
-  constructor(sessionId) {
-    this.sync = new Sync(sessionId);
-  }
+class Params {
   /* --------------------------------------------
    * Validate the data that is supposed to be sent
    * to the webite
@@ -20,14 +17,15 @@ class Validator {
    * @return: isValid<Boolean>
    *
    */
-  async validate({ semester, program, section }) {
+  static async validate(sessionId, { semester, program, section }) {
+    const sync = new Sync(sessionId);
     // This response contains programs which will
     // be used to check semesters and programs
-    const semesterResponse = await this.sync.fetch(paths.SEM, { semester });
+    const semesterResponse = await sync.fetch(paths.SEM, { semester });
 
     // This response contains the all sections
     // with the information provided
-    const sectionResponse = await this.sync.fetch(paths.SEM, {
+    const sectionResponse = await sync.fetch(paths.SEM, {
       semester,
       program,
     });
@@ -48,7 +46,7 @@ class Validator {
    * @return: isExist<Boolean>
    *
    */
-  async _isSemester(semesterOpts) {
+  static async _isSemester(semesterOpts) {
     const { document } = new JSDOM(semesterOpts).window;
 
     const isExist = document.querySelectorAll('option').length > 1;
@@ -64,7 +62,7 @@ class Validator {
    * @return: isExist<Boolean>
    *
    */
-  async _isProgram(programOpts, programId) {
+  static async _isProgram(programOpts, programId) {
     const { document } = new JSDOM(programOpts).window;
     const programs = document.querySelectorAll(`option[value='${programId}']`);
 
@@ -81,7 +79,7 @@ class Validator {
    * @return: isExist<Boolean>
    *
    */
-  async _isSection(sectionOpts, sectionId) {
+  static async _isSection(sectionOpts, sectionId) {
     const { document } = new JSDOM(sectionOpts).window;
     const sections = document.querySelectorAll(`option[value='${sectionId}']`);
 
@@ -90,4 +88,4 @@ class Validator {
   }
 }
 
-module.exports = { Validator };
+module.exports = { Params };

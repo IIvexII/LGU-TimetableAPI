@@ -2,7 +2,7 @@ const { JSDOM } = require('jsdom');
 
 const { Sync } = require('./Sync');
 const { calculateTime } = require('../utils/utils');
-const paths = require('../Enums/paths');
+const { paths } = require('../Enums');
 
 /*
  * This class is responsible for fetching
@@ -49,30 +49,16 @@ class Timetable {
     // Convert the raw timetable into dom like object
     const { document } = new JSDOM(rawTimetable.data).window;
 
-    if (this._isLoggedin(document)) {
-      const parsedTimetable = this._parseTable(document);
+    const parsedTimetable = this._parseTable(document);
 
-      if (Object.keys(parsedTimetable).length > 0) {
-        return parsedTimetable;
-      } else {
-        return {
-          error: 'Table not found',
-        };
-      }
+    if (Object.keys(parsedTimetable).length > 0) {
+      return parsedTimetable;
     } else {
       return {
-        error: 'Please login and provide the session id',
+        error: 'Table not found',
       };
     }
   }
-
-  _isLoggedin(document) {
-    if (document.querySelector('form legend')?.textContent) {
-      return false;
-    }
-    return true;
-  }
-
   /*------------------------------------------------------
    * (private) This function is reponsible for parsing the dom
    * and returning an object containg the whole table
