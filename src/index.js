@@ -1,4 +1,5 @@
 const Timetable = require('./modules/Timetable');
+const { Validator } = require('./modules/Validateor');
 
 const sessionId = 'jjedrbhv59rmhc871qs1i7gv97';
 
@@ -10,6 +11,10 @@ const data = {
 
 const timeTable = new Timetable(sessionId, data);
 
-timeTable.get().then((res) => {
-  console.log(res);
+// timeTable.get().then((res) => {
+//   console.log(res);
+// });
+const validator = new Validator(sessionId);
+validator._isSemester(data.semester).then((isExist) => {
+  console.log(isExist);
 });
