@@ -8,50 +8,85 @@ class Validator {
     this.sync = new Sync(sessionId);
   }
   /* --------------------------------------------
-   * This method is used to see if a semester
-   * exist on the offical website.
-   *
-   * Working: This works by send a request with
-   * semester as param and get the programs this
-   * semester offers. If it has more then one
-   * program options available, semester is valid
-   * and invalid otherwise.
+   * Validate the data that is supposed to be sent
+   * to the webite
    * ---------------------------------------------
    *
-   * @params: semester<String>
+   * @params: data<{
+   *  semester: String,
+   *  program: String,
+   *  section: String,
+   * }>
+   * @return: isValid<Boolean>
+   *
+   */
+  async validate({ semester, program, section }) {
+    // This response contains programs which will
+    // be used to check semesters and programs
+    const semesterResponse = await this.sync.fetch(paths.SEM, { semester });
+
+    // This response contains the all sections
+    // with the information provided
+    const sectionResponse = await this.sync.fetch(paths.SEM, {
+      semester,
+      program,
+    });
+
+    const isSem = await this._isSemester(semesterResponse.data);
+    const isProg = await this._isProgram(semesterResponse.data, program);
+    const isSec = await this._isSection(sectionResponse.data, section);
+
+    const isValid = isSem && isProg && isSec;
+    return isValid;
+  }
+  /* --------------------------------------------
+   * This method is used to see if a semester
+   * exist on the offical website.
+   * ---------------------------------------------
+   *
+   * @params: semesterOpts<HTMLElements>
    * @return: isExist<Boolean>
    *
    */
-  async _isSemester(semester) {
-    const res = await this.sync.fetch(paths.SEM, { semester });
-    const { document } = new JSDOM(res.data).window;
+  async _isSemester(semesterOpts) {
+    const { document } = new JSDOM(semesterOpts).window;
 
-    return document.querySelectorAll('option').length > 1;
+    const isExist = document.querySelectorAll('option').length > 1;
+    return isExist;
   }
 
   /* --------------------------------------------
    * This method is used to see if a program
    * exist on the offical website.
-   *
-   * Working: Same as _isSemester() method but
-   * searchs for specific program via programId
-   * and then if it found 1 then return true and
-   * false otherwise.
    * ---------------------------------------------
    *
-   * @params: semester<String>, programId <Number>
+   * @params: programOpts<HTMLElements>, programId <Number>
    * @return: isExist<Boolean>
+   *
    */
-  async _isProgram(semester, programId) {
-    const res = await this.sync.fetch(paths.SEM, {
-      semester,
-      program: programId,
-    });
-
-    const { document } = new JSDOM(res.data).window;
+  async _isProgram(programOpts, programId) {
+    const { document } = new JSDOM(programOpts).window;
     const programs = document.querySelectorAll(`option[value='${programId}']`);
 
-    return programs.length === 1;
+    const isExist = programs.length === 1;
+    return isExist;
+  }
+  /* --------------------------------------------
+   * This method is used to see if a section
+   * exist on the offical website.
+   * ---------------------------------------------
+   *
+   * @params: sectionOpts<HTMLElements>, sectionId <Number>
+   *
+   * @return: isExist<Boolean>
+   *
+   */
+  async _isSection(sectionOpts, sectionId) {
+    const { document } = new JSDOM(sectionOpts).window;
+    const sections = document.querySelectorAll(`option[value='${sectionId}']`);
+
+    const isExist = sections.length === 1;
+    return isExist;
   }
 }
 
