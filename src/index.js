@@ -1,5 +1,5 @@
 const Timetable = require('./modules/Timetable');
-const { Validator } = require('./modules/Validateor');
+const { Params, Session } = require('./validators');
 
 const sessionId = 'jjedrbhv59rmhc871qs1i7gv97';
 
