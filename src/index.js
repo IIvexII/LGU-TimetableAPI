@@ -11,6 +11,10 @@ const data = {
 
 const timeTable = new Timetable(sessionId, data);
 
-timeTable.get().then((res) => {
-  console.log(res);
+// timeTable.get().then((res) => {
+//   console.log(res);
+// });
+const validator = new Validator(sessionId);
+validator.validate(data).then((isExist) => {
+  console.log(isExist);
 });

@@ -4,6 +4,7 @@ const { Sync } = require('./Sync');
 const { calculateTime } = require('../utils/utils');
 const { paths } = require('../Enums');
 
+
 /*
  * This class is responsible for fetching
  * data from timetable.lgu.edu.pk
@@ -59,6 +60,7 @@ class Timetable {
       };
     }
   }
+
   /*------------------------------------------------------
    * (private) This function is reponsible for parsing the dom
    * and returning an object containg the whole table
