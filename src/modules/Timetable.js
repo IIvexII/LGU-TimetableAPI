@@ -1,11 +1,8 @@
 const { JSDOM } = require('jsdom');
-const { Sync } = require('./Sync');
-const { calculateTime } = require('./utils');
 
-// This object Contain the paths of timetable.edu.pk
-const paths = {
-  STT: 'Semesters/semester_info/SEMESTER_TIMETABLE.php',
-};
+const { Sync } = require('./Sync');
+const { calculateTime } = require('../utils/utils');
+const paths = require('../Enums/paths');
 
 /*
  * This class is responsible for fetching
