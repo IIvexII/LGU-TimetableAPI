@@ -3,39 +3,16 @@ const { JSDOM } = require('jsdom');
 const { paths } = require('../Enums');
 const { Sync } = require('../modules/Sync');
 
-class Section {
+const { Model } = require('./Model');
+
+class Section extends Model {
   constructor(session, semester, degree) {
-    this.semester = semester;
+    super();
     this.sync = new Sync(session);
+    this.semester = semester;
     this.degree = degree;
-    this.sections = this._parse();
-  }
-  /*
-   * @params id<String>
-   * @return section
-   */
-  async getById(id) {
-    const sections = await this.sections;
-    const name = sections[id];
 
-    return { ...(name ? { [id]: name } : {}) };
-  }
-  /*
-   * @params name<String>
-   * @return section
-   */
-  async getByName(name) {
-    const sections = await this.sections;
-    const id = Object.keys(sections).find((key) => sections[key] == name);
-
-    return { ...(id ? { [id]: name } : {}) };
-  }
-  /*
-   * @params none
-   * @return all sections available
-   */
-  async getAll() {
-    return await this.sections;
+    this.data = this._parse();
   }
   /*
    * @params none
