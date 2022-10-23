@@ -2,6 +2,7 @@ const { JSDOM } = require('jsdom');
 
 const paths = require('../Enums/paths');
 const { Sync } = require('../modules/Sync');
+const { Degree } = require('../models');
 
 class Params {
   static _error = {

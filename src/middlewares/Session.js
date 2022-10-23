@@ -1,6 +1,4 @@
-const { JSDOM } = require('jsdom');
-const { Sync } = require('../modules/Sync');
-const { paths } = require('../Enums');
+const { Semester } = require('../models');
 
 class Session {
   static _error = {
@@ -19,16 +17,10 @@ class Session {
   static async validate(req, res, next) {
     const sessionId = req.query.session;
 
-    if (!sessionId) {
-      return res.status(401).json(Session._error);
-    }
-    const sync = new Sync(sessionId);
-
-    const response = await sync.fetch(paths.STT, {});
-    const { document } = new JSDOM(response.data).window;
-
-    if (document.querySelector('form legend')?.textContent) {
-      return res.status(401).json(Session._error);
+    const semester = new Semester(sessionId);
+    const semesters = Object.keys(await semester.getAll());
+    if (semesters.length === 0) {
+      return res.json(Session._error);
     }
     next();
   }
