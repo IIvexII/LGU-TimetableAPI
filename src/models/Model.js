@@ -7,7 +7,7 @@ class Model {
     const data = await this.data;
     const name = data[id];
 
-    return { ...(name ? { [id]: name } : {}) };
+    return { id, name };
   }
   /*
    * @params name<String>
@@ -16,8 +16,7 @@ class Model {
   async getByName(name) {
     const data = await this.data;
     const id = Object.keys(data).find((key) => data[key] == name);
-
-    return { ...(id ? { [id]: name } : {}) };
+    return { id, name };
   }
   /*
    * @params none

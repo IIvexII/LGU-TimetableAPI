@@ -1,12 +1,8 @@
-const { JSDOM } = require('jsdom');
-
-const paths = require('../Enums/paths');
-const { Sync } = require('../modules/Sync');
-const { Degree } = require('../models');
+const { Semester, Degree, Section } = require('../models');
 
 class Params {
   static _error = {
-    error: 'Please Provide all the parameters.',
+    error: 'Please Provide all the parameters with correct information.',
     parameter: {
       session: 'required',
       semester: 'required',
@@ -26,91 +22,31 @@ class Params {
    */
   static async validate(req, res, next) {
     // prepare parameters
+    const session = req.query.session;
+    const semester = await new Semester(session).getById(req.query.semester);
+    const degree = await new Degree(session, semester.name).getByName(
+      req.query.degree,
+    );
+
+    const section = await new Section(
+      session,
+      semester.name,
+      degree.id,
+    ).getByName(req.query.section);
+
     const data = {
-      session: req.query.session,
-      semester: req.query.semester,
-      program: req.query.program,
-      section: req.query.section,
+      session,
+      semester: semester.name,
+      program: degree.id,
+      section: section.id,
     };
     req.data = data;
 
     if (!data.session || !data.semester || !data.program || !data.section) {
       return res.status(400).send(Params._error);
-    }
-    const sync = new Sync(data.session);
-    // This response contains programs which will
-    // be used to check semesters and programs
-    const semesterResponse = await sync.fetch(paths.SEM, {
-      semester: data.semester,
-    });
-
-    // This response contains the all sections
-    // with the information provided
-    const sectionResponse = await sync.fetch(paths.SEM, {
-      semester: data.semester,
-      program: data.program,
-    });
-
-    const isSem = await Params._isSemester(semesterResponse.data);
-    const isProg = await Params._isProgram(semesterResponse.data, data.program);
-    const isSec = await Params._isSection(sectionResponse.data, data.section);
-
-    const isValid = isSem && isProg && isSec;
-
-    if (isValid) {
-      next();
     } else {
-      return res.status(400).send(Params._error);
+      next();
     }
-  }
-  /* --------------------------------------------
-   * This method is used to see if a semester
-   * exist on the offical website.
-   * ---------------------------------------------
-   *
-   * @params: semesterOpts<HTMLElements>
-   * @return: isExist<Boolean>
-   *
-   */
-  static async _isSemester(semesterOpts) {
-    const { document } = new JSDOM(semesterOpts).window;
-
-    const isExist = document.querySelectorAll('option').length > 1;
-    return isExist;
-  }
-
-  /* --------------------------------------------
-   * This method is used to see if a program
-   * exist on the offical website.
-   * ---------------------------------------------
-   *
-   * @params: programOpts<HTMLElements>, programId <Number>
-   * @return: isExist<Boolean>
-   *
-   */
-  static async _isProgram(programOpts, programId) {
-    const { document } = new JSDOM(programOpts).window;
-    const programs = document.querySelectorAll(`option[value='${programId}']`);
-
-    const isExist = programs.length === 1;
-    return isExist;
-  }
-  /* --------------------------------------------
-   * This method is used to see if a section
-   * exist on the offical website.
-   * ---------------------------------------------
-   *
-   * @params: sectionOpts<HTMLElements>, sectionId <Number>
-   *
-   * @return: isExist<Boolean>
-   *
-   */
-  static async _isSection(sectionOpts, sectionId) {
-    const { document } = new JSDOM(sectionOpts).window;
-    const sections = document.querySelectorAll(`option[value='${sectionId}']`);
-
-    const isExist = sections.length === 1;
-    return isExist;
   }
 }
 

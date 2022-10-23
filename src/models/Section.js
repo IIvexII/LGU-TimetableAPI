@@ -31,7 +31,7 @@ class Section extends Model {
 
     for (let sectionOpt of sectionOpts) {
       const id = sectionOpt.getAttribute('value');
-      sections[id] = sectionOpt.textContent.trim();
+      sections[id] = sectionOpt.textContent.trim().split(' ')[1];
     }
 
     return sections;
