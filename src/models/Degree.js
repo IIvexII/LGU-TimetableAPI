@@ -11,23 +11,27 @@ class Degree {
   }
   /*
    * @params id<String>
-   * @return degree id
+   * @return degree name
    */
   async getById(id) {
     const degrees = await this.degrees;
-    return Object.keys(degrees).find((key) => degrees[key] == id);
+    const name = degrees[id];
+
+    return { ...(name ? { [id]: name } : {}) };
   }
   /*
    * @params name<String>
    * @return degree id
    */
-  async getIdByName(name) {
+  async getByName(name) {
     const degrees = await this.degrees;
-    return degrees[name];
+    const id = Object.keys(degrees).find((key) => degrees[key] == name);
+
+    return { ...(id ? { [id]: name } : {}) };
   }
   /*
    * @params none
-   * @return all semesters available
+   * @return all degrees available
    */
   async getAll() {
     return await this.degrees;
@@ -49,7 +53,7 @@ class Degree {
 
     for (let degreeOpt of degreeOpts) {
       const id = degreeOpt.getAttribute('value');
-      degrees[degreeOpt.textContent.trim()] = id;
+      degrees[id] = degreeOpt.textContent.trim();
     }
 
     return degrees;
@@ -63,5 +67,9 @@ class Degree {
     return res.data;
   }
 }
-
+new Degree('jjedrbhv59rmhc871qs1i7gv97', '2nd Semester Fall-2022 / Spring-2022')
+  .getById('')
+  .then((degs) => {
+    console.log(degs);
+  });
 module.exports = { Degree };
