@@ -67,9 +67,5 @@ class Degree {
     return res.data;
   }
 }
-new Degree('jjedrbhv59rmhc871qs1i7gv97', '2nd Semester Fall-2022 / Spring-2022')
-  .getById('')
-  .then((degs) => {
-    console.log(degs);
-  });
+
 module.exports = { Degree };

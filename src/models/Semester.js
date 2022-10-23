@@ -14,7 +14,18 @@ class Semester {
    */
   async getById(id) {
     const semesters = await this.semesters;
-    return semesters[id];
+    const name = semesters[id]; // semester full name
+    return { ...(name ? { [id]: name } : {}) };
+  }
+  /*
+   * @params id<String>
+   * @return semester
+   */
+  async getByName(name) {
+    const semesters = await this.semesters;
+    const id = Object.keys(semesters).find((key) => semesters[key] == name);
+
+    return { ...(id ? { [id]: name } : {}) };
   }
   /*
    * @params none
@@ -37,7 +48,7 @@ class Semester {
     const semesterOpts = document.querySelectorAll('#semester option[value]');
 
     for (let semesterOpt of semesterOpts) {
-      const id = semesterOpt.textContent.trim().split(' ')[0].toLowerCase();
+      const id = semesterOpt.textContent.trim().split('')[0].toLowerCase();
 
       semesters[id] = semesterOpt.textContent.trim();
     }
