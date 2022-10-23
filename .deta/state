@@ -1,0 +1,19 @@
+{
+  "package-lock.json": "94aa0c6629059b8e185de5053e4c52923b0a8ee2b4ecd3cb4e06fe8f563d2d45",
+  "package.json": "bdf071dff4f09ccb9458e9959cc5f197a777ca625ab9c9faaaa1d78e5cb7c44e",
+  "src/Enums/index.js": "64e2781bc6104d9d4e789bfcd7b1a7dbcf09385b990559b7838a12a3557e71f0",
+  "src/Enums/paths.js": "18720713bb234fb6772c1954cd3d54b2e1512c6d30aa743c9c1ac9b616dcda6c",
+  "src/index.js": "75e0bfcf6266ba05a3cdeb15ec7ff9fa83748edec60c0ad3a46b212a13994bba",
+  "src/middlewares/Params.js": "1f90d376ea3229981904eb607f4a263460aaba25ca78089e849d8ada33fc91d8",
+  "src/middlewares/Session.js": "883bd3871466a044b2e9a96a755629a12df745b4a743db8d22469990b16db7bb",
+  "src/middlewares/index.js": "3dfe29d46c7b32c45060974130d533de8256212dfa452d4ad89a116bf22d0e8f",
+  "src/models/Degree.js": "7e9e97efdefda90431ff79079586b9e40337a8241543a4bfbe7d52b87b73c91a",
+  "src/models/Model.js": "89ea9afeb276c3d4d96f9094125a9ee3cdf75c84ed7c719eb7f574ed8b3acbe7",
+  "src/models/Section.js": "5878cf6a4f2fc962ce8db7efb24578c7bf61df605ead656cdc74cc4998ffc12f",
+  "src/models/Semester.js": "9a407c1b4974d79134ca13eec1459b663274209030a88270e8cb87cfb3c9f4fd",
+  "src/models/index.js": "bcc150a36a6a4f3642c2739d2c5810c14c47942c74bc076ac987273926ff7c22",
+  "src/modules/Sync.js": "6b4f93f8b6053e062286ae43444cd4cac7e239980eee0c6f568f80fc94858a73",
+  "src/modules/Timetable.js": "2ae6a335209b2f6422477ef3aa0f924de265acf2bfe9c8e4ffcb790b34044aa5",
+  "src/modules/Validateor.js": "0676ffddb402c2578fa262c53cce1f86ebbd2b47498f53a7ce94216862f6302c",
+  "src/utils/utils.js": "931ec75ba5fe5bb39f407a6148573225089424f6e0693efc8318aaf7807af466"
+}

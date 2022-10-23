@@ -23,6 +23,4 @@ app.get('/', Session.validate, Params.validate, async (req, res) => {
   res.send({ ...(await timeTable.get()) });
 });
 
-app.listen(3000, () => {
-  console.log('Listening on port 3000...');
-});
+module.exports = app;
