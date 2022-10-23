@@ -8,14 +8,27 @@ class Semester {
     this.sync = new Sync(session);
     this.semesters = this._parse();
   }
+  /*
+   * @params id<String>
+   * @return semester
+   */
   async getById(id) {
     const semesters = await this.semesters;
     return semesters[id];
   }
+  /*
+   * @params none
+   * @return all semesters available
+   */
   async getAll() {
     return this.semesters;
   }
-  // This method parse the page and output an object
+  /*
+   * @params none
+   * @return Object<{
+   *    id: semester-full-name
+   *  }>
+   */
   async _parse() {
     const semesters = {};
     const res = await this._fetch();
@@ -31,7 +44,10 @@ class Semester {
 
     return semesters;
   }
-
+  /*
+   * @params none
+   * @return html-page<HTMLElement>
+   */
   async _fetch() {
     const res = await this.sync.fetch(paths.SP, {});
     return res.data;
