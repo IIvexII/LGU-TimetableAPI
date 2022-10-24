@@ -1,7 +1,7 @@
 const { JSDOM } = require('jsdom');
 
 const { paths } = require('../Enums');
-const { Sync } = require('../modules/Sync');
+const { Sync } = require('../utils');
 
 const { Model } = require('./Model');
 

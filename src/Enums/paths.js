@@ -7,6 +7,7 @@
  * -> SEM - Information about semester
  */
 const paths = {
+  BASE_URL: 'https://timetable.lgu.edu.pk',
   SP: 'Semesters/Semester_pannel.php',
   STT: 'Semesters/semester_info/SEMESTER_TIMETABLE.php',
   SEM: 'Semesters/ajax.php',

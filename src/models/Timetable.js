@@ -1,14 +1,15 @@
 const { JSDOM } = require('jsdom');
 
-const { Sync } = require('./Sync');
-const { calculateTime } = require('../utils/utils');
+const { Sync } = require('../utils/Sync');
+const { calculateTime } = require('../utils');
 const { paths } = require('../Enums');
+const { Model } = require('./Model');
 
 /*
  * This class is responsible for fetching
  * data from timetable.lgu.edu.pk
  */
-class Timetable {
+class Timetable extends Model {
   /*
    * constructor of Timetable
    *
@@ -19,58 +20,39 @@ class Timetable {
    *    section: string
    *  }>
    */
-  constructor(params) {
-    this.sync = new Sync(params.session);
+  constructor(session, semester, degree, section) {
+    super();
+    this.sync = new Sync(session);
 
-    this.baseUrl = 'https://timetable.lgu.edu.pk';
+    this.semester = semester;
+    this.degree = degree;
+    this.section = section;
 
     // Fetch the table from website
-    this.rawTimetable = (async () => {
-      return await this.sync.fetch(paths.STT, params);
-    })();
+    this.data = this._parse();
   }
-  /* ----------------------------------------
-   * This methond parse the the HTML page to
-   * look  for  timetable and  return  it as
-   * object .
-   * ----------------------------------------
-   *
-   * @params: no params required
-   * @return: response<promise> {
-   *  day: Array<[
-   *    'startTime-endTime': {
-   *       subject?: String,
-   *       roomNo?: String,
-   *       teacher?: String,
-   *       error?: String
-   *     }
-   *  ]>
-   * }
-   */
-  async get() {
-    // making a copy of class property 'rawTimetable'
-    const rawTimetable = await this.rawTimetable;
-
-    // Convert the raw timetable into dom like object
-    const { document } = new JSDOM(rawTimetable.data).window;
-
-    const parsedTimetable = this._parseTable(document);
-
-    if (Object.keys(parsedTimetable).length > 0) {
-      return parsedTimetable;
-    } else {
-      return {
-        error: 'Table not found',
-      };
-    }
+  // Overwriting the methods and show error
+  // that they are not available.
+  getById(id) {
+    return new Promise((resolve) => {
+      return resolve({
+        error: 'getById() is not available for Timetable Model.',
+      });
+    });
   }
-
+  getByName(name) {
+    return new Promise((resolve) => {
+      return resolve({
+        error: 'getByName() is not available for Timetable Model.',
+      });
+    });
+  }
   /*------------------------------------------------------
    * (private) This function is reponsible for parsing the dom
    * and returning an object containg the whole table
    * infomation.
    *------------------------------------------------------
-   * @params: document<Document (dom.window.document)>
+   * @params: none
    * @return: response<promise> {
    *  day: Array<{
    *    startTime: Number,
@@ -82,8 +64,10 @@ class Timetable {
    *  }>
    * }
    */
-  _parseTable(document) {
-    const parsedTimetable = [];
+  async _parse() {
+    const timetable = {};
+    const res = await this._fetch();
+    const { document } = new JSDOM(res).window;
 
     // all table rows ignoring the first row
     const tableRows = document.querySelectorAll(
@@ -127,13 +111,23 @@ class Timetable {
       }
       // store the class in timetable if it has any class for that day.
       if (classes.length > 0) {
-        parsedTimetable[day] = classes;
-      } else {
-        parsedTimetable[day] = [{ info: "Yippi! It's holiday <3" }];
+        timetable[day] = classes;
       }
     }
-    return parsedTimetable;
+    return timetable;
+  }
+  /*
+   * @params none
+   * @return html-page<HTMLElement>
+   */
+  async _fetch() {
+    const res = await this.sync.fetch(paths.STT, {
+      semester: this.semester,
+      program: this.degree,
+      section: this.section,
+    });
+    return res.data;
   }
 }
 
-module.exports = Timetable;
+module.exports = { Timetable };

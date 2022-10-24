@@ -1,8 +1,9 @@
 const express = require('express');
-const Timetable = require('./src/modules/Timetable');
+const Timetable = require('./modules/Timetable');
 // Middlewares
-const { Session } = require('./src/middlewares');
-const { Params } = require('./src/middlewares/Params');
+const { Session, Params } = require('./middlewares');
+
+const { Timetable } = require('./models');
 
 const app = express();
 
@@ -19,8 +20,10 @@ const app = express();
  * ------------------------------------
  */
 app.get('/', Session.validate, Params.validate, async (req, res) => {
-  const timeTable = new Timetable(req.data);
-  res.send({ ...(await timeTable.get()) });
+  const { session, semester, program, section } = req.data;
+
+  const timetable = new Timetable(session, semester, program, section);
+  res.send(await timetable.getAll());
 });
 
 module.exports = app;
