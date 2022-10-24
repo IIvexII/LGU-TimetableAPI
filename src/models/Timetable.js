@@ -1,7 +1,7 @@
 const { JSDOM } = require('jsdom');
 
-const { Sync } = require('../modules/Sync');
-const { calculateTime } = require('../utils/utils');
+const { Sync } = require('../utils/Sync');
+const { calculateTime } = require('../utils');
 const { paths } = require('../Enums');
 const { Model } = require('./Model');
 
