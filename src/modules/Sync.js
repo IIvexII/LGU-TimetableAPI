@@ -1,5 +1,5 @@
 const axios = require('axios');
-
+const { paths } = require('../Enums');
 class Sync {
   constructor(sessionId) {
     this.sessionId = sessionId;
@@ -29,8 +29,7 @@ class Sync {
    *
    */
   async _request(path, params) {
-    const baseUrl = 'https://timetable.lgu.edu.pk';
-    const url = `${baseUrl}/${path}`;
+    const url = `${paths.BASE_URL}/${path}`;
 
     // configuration is specific for the timetable.edu.pk
     const config = {

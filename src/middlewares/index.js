@@ -1,3 +1,4 @@
 const { Session } = require('./Session');
+const { Params } = require('./Params');
 
-module.exports = { Session };
+module.exports = { Session, Params };
