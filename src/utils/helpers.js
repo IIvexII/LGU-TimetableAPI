@@ -1,3 +1,4 @@
+const { days } = require('../Enums');
 /* ------------------------------------
  * This method calculates time
  * using the number of sessions and
@@ -30,4 +31,19 @@ function calculateTime(sessions, previousTime = { hours: 8, minutes: 0 }) {
   return time;
 }
 
-module.exports = { calculateTime };
+function createDate(day, hours, minites, seconds) {
+  const date = new Date();
+  date.setDate(
+    date.getDate() - ((((7 - date.getDay()) % 7) + 1) % 7) + days[day],
+  );
+  date.setHours(hours);
+  date.setMinutes(minites);
+  date.setSeconds(seconds);
+
+  return date;
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+module.exports = { calculateTime, createDate, sleep };
