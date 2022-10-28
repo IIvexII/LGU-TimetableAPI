@@ -31,16 +31,11 @@ function calculateTime(sessions, previousTime = { hours: 8, minutes: 0 }) {
   return time;
 }
 
-function createDate(day, hours, minites, seconds) {
+function createDate(day, hours, minites) {
   const date = new Date();
-  date.setDate(
-    date.getDate() - ((((7 - date.getDay()) % 7) + 1) % 7) + days[day],
-  );
-  date.setHours(hours);
-  date.setMinutes(minites);
-  date.setSeconds(seconds);
-
-  return date;
+  date.setDate(date.getDate() - date.getDay() + 1 + days[day]);
+  date.setHours(hours, minites, 0);
+  return new Date(date.toLocaleString('en-us', { timeZone: 'Asia/Karachi' }));
 }
 
 function sleep(ms) {
