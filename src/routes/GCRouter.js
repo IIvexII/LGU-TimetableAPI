@@ -1,4 +1,4 @@
-const { GoogleCalendar } = require('../controllers/GoogleCalendar');
+const { GoogleCalendar } = require('../../lib/GoogleCalendar');
 const { createDate } = require('../utils');
 const { Router } = require('express');
 const { Timetable } = require('../models');

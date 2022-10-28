@@ -1,14 +1,14 @@
 const express = require('express');
 const { Session, Params } = require('./middlewares');
 
-const LGURouter = require('./routes/LGUTimetable');
-const GoogleCalendarRouter = require('./routes/GoogleCalendar');
+const LGURouter = require('./routes/LGURouter');
+const GCRouter = require('./routes/GCRouter');
 
 const app = express();
 // Applying Middlewares to all routes
 app.use(Session.validate, Params.validate);
 
-app.use(GoogleCalendarRouter);
+app.use(GCRouter);
 app.use(LGURouter);
 
 app.listen(3000, () => {
