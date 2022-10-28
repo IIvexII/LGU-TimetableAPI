@@ -1,5 +1,6 @@
 require('dotenv').config();
 const { google } = require('googleapis');
+const { createDate } = require('../utils/helpers');
 
 class GoogleCalendar {
   constructor() {
@@ -97,11 +98,3 @@ class GoogleCalendar {
 }
 
 module.exports = { GoogleCalendar };
-const gc = new GoogleCalendar();
-// gc.insertOne({
-//   teacherName: 'Zafeer',
-//   roomNo: '14NB',
-//   subject: 'Web Development',
-//   startTime: createDate('Wednesday', 7, 30, 0),
-//   endTime: createDate('Wednesday', 12, 30, 0),
-// });

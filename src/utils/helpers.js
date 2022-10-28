@@ -38,7 +38,4 @@ function createDate(day, hours, minites) {
   return new Date(date.toLocaleString('en-us', { timeZone: 'Asia/Karachi' }));
 }
 
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-module.exports = { calculateTime, createDate, sleep };
+module.exports = { calculateTime, createDate };

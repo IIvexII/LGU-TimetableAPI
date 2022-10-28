@@ -1,7 +1,7 @@
 const express = require('express');
 const { Session, Params } = require('./middlewares');
 
-const LGURouter = require('./routes/LGU');
+const LGURouter = require('./routes/LGUTimetable');
 const GoogleCalendarRouter = require('./routes/GoogleCalendar');
 
 const app = express();

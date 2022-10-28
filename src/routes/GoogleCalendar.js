@@ -1,5 +1,5 @@
 const { GoogleCalendar } = require('../controllers/GoogleCalendar');
-const { createDate, sleep } = require('../utils/helpers');
+const { createDate } = require('../utils');
 const { Router } = require('express');
 const { Timetable } = require('../models');
 
@@ -20,16 +20,12 @@ router.get('/gc-integration', async (req, res) => {
       const { hours: sHours, minutes: sMinutes } = lecture.startTime;
       const { hours: eHours, minutes: eMinutes } = lecture.endTime;
 
-      googleCalendar.setEvent({
+      googleCalendar.insertOne({
         roomNo: lecture.roomNo?.trim(),
         subject: lecture.subject?.trim(),
         teacherName: lecture.teacher?.trim(),
         startTime: createDate(key, sHours, sMinutes, 0),
         endTime: createDate(key, eHours, eMinutes, 0),
-      });
-
-      sleep(5000).then(() => {
-        googleCalendar.insertEvent();
       });
     });
   });
