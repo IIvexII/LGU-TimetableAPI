@@ -1,16 +1,13 @@
 require('dotenv').config();
 const { google } = require('googleapis');
-const { createDate } = require('../utils/helpers');
 
 class GoogleCalendar {
   constructor() {
     this._config();
-    // Event
-    this.events = [];
   }
   /* --------------------------------
-   * pushEvent() - pushes the event
-   * in event's array.
+   * insertOne() - insert the event
+   * in google calendar
    * --------------------------------
    * @params Object<{
    *  roomNo: String,
@@ -21,16 +18,7 @@ class GoogleCalendar {
    * }>
    * @return undefined
    */
-  // pushEvent(event) {
-  //   this.event.summary = `${event.roomNo} - ${event.subject}`;
-  //   this.event.location = `Lahore Garrison University`;
-  //   this.event.description = event.teacherName;
-  //   this.event.start.dateTime = event.startTime;
-  //   this.event.end.dateTime = event.endTime;
-
-  //   this.events.push(this.event);
-  // }
-  insertOne(event) {
+  async insertOne(event) {
     this.calendar.events.insert(
       {
         auth: this._oAuth2Client,
@@ -44,10 +32,23 @@ class GoogleCalendar {
           );
           return;
         }
-        console.log('Event created:', event);
+        console.log('Event Status:', event?.statusText);
       },
     );
   }
+  /* ------------------------------------
+   * (private) _createEvent() - it creates
+   * an event object and returns it.
+   * -------------------------------------
+   * @params Object<{
+   *  roomNo: String,
+   *  subject: String,
+   *  teacherName: String,
+   *  startTime: DateTime,
+   *  endTime: DateTime,
+   * }>
+   * @return eventObject
+   */
   _createEvent(event) {
     return {
       summary: `${event.roomNo} - ${event.subject}`,
@@ -66,14 +67,16 @@ class GoogleCalendar {
         useDefault: false,
         overrides: [{ method: 'popup', minutes: 10 }],
       },
-      colorId: 2,
+      colorId: 2, // green color
     };
   }
-  // clearAllEvents() {
-  //   this.calendar.calendars.clear({
-  //     calendarId: process.env.CALENDAR_ID,
-  //   });
-  // }
+  /* ------------------------------------
+   * (private) _config() - it configure
+   * google calendar api
+   * -------------------------------------
+   * @params none
+   * @return none
+   */
   _config() {
     // Initial Setup for google calendar API
     this._OAuth2 = google.auth.OAuth2;
@@ -94,9 +97,7 @@ class GoogleCalendar {
 }
 
 module.exports = { GoogleCalendar };
-
-// const gc = new GoogleCalendar();
-
+const gc = new GoogleCalendar();
 // gc.insertOne({
 //   teacherName: 'Zafeer',
 //   roomNo: '14NB',
