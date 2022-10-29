@@ -3,7 +3,7 @@ const { Timetable } = require('../models');
 class LGUController {
   static async get(req, res) {
     const timetable = await LGUController.getTimetable(req.data);
-    res.send();
+    res.send(timetable);
   }
   static async getTimetable(data) {
     const { session, semester, program, section } = data;
