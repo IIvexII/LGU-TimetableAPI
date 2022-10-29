@@ -1,16 +1,14 @@
 const express = require('express');
-// Middlewares
 const { Session, Params } = require('./src/middlewares');
 
-const { Timetable } = require('./src/models');
+const LGURouter = require('./src/routes/LGURouter');
+const GCRouter = require('./src/routes/GCRouter');
 
 const app = express();
+// Applying Middlewares to all routes
+app.use(Session.validate, Params.validate);
 
-app.get('/', Session.validate, Params.validate, async (req, res) => {
-  const { session, semester, program, section } = req.data;
-
-  const timetable = new Timetable(session, semester, program, section);
-  res.send(await timetable.getAll());
-});
+app.use(GCRouter);
+app.use(LGURouter);
 
 module.exports = app;
