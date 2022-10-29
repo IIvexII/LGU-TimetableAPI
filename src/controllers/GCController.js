@@ -1,20 +1,17 @@
+const { LGUController } = require('./LGUController');
 const { GoogleCalendar } = require('../lib/GoogleCalendar');
-const { Timetable } = require('../models');
 const { createDate } = require('../utils');
 
 class GCController {
-  static async syncTimetable(req, res) {
-    const { session, semester, program, section } = req.data;
-
-    const timetable = new Timetable(session, semester, program, section);
-    const data = await timetable.getAll();
+  static async storeTimetable(req, res) {
+    const timetable = await LGUController.getTimetable(req.data);
 
     const googleCalendar = new GoogleCalendar();
 
-    const keys = Object.keys(data);
+    const days = Object.keys(timetable);
 
-    keys.forEach((key) => {
-      data[key].forEach((lecture) => {
+    for (let day of days) {
+      timetable[day].forEach((lecture) => {
         const { hours: sHours, minutes: sMinutes } = lecture.startTime;
         const { hours: eHours, minutes: eMinutes } = lecture.endTime;
 
@@ -22,12 +19,12 @@ class GCController {
           roomNo: lecture.roomNo?.trim(),
           subject: lecture.subject?.trim(),
           teacherName: lecture.teacher?.trim(),
-          startTime: createDate(key, sHours, sMinutes, 0),
-          endTime: createDate(key, eHours, eMinutes, 0),
+          startTime: createDate(day, sHours, sMinutes, 0),
+          endTime: createDate(day, eHours, eMinutes, 0),
         });
       });
-    });
-    res.send('Done');
+    }
+    // res.send('Done');
   }
 }
 

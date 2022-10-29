@@ -1,9 +1,11 @@
 require('dotenv').config();
 const { google } = require('googleapis');
+const { days } = require('../Enums');
 
 class GoogleCalendar {
   constructor() {
     this._config();
+    this.missedEvents = [];
   }
   /* --------------------------------
    * insertOne() - insert the event
@@ -25,14 +27,20 @@ class GoogleCalendar {
         calendarId: process.env.CALENDAR_ID,
         resource: this._createEvent(event),
       },
-      (err, event) => {
+      (err, ev) => {
+        if (this.missedEvents.length > 0) {
+          for (let missedEvent of this.missedEvents) {
+            this.insertOne(missedEvent);
+            this.missedEvents.shift();
+          }
+        }
         if (err) {
-          console.log(
-            'There was an error contacting the Calendar service: ' + err,
-          );
+          if (!this._searchEventInArr(ev, this.missedEvents)) {
+            this.missedEvents.push(event);
+          }
+
           return;
         }
-        console.log('Event Status:', event?.statusText);
       },
     );
   }
@@ -93,6 +101,12 @@ class GoogleCalendar {
       version: 'v3',
       auth: this._oAuth2Client,
     });
+  }
+  _searchEventInArr(event, eventArr) {
+    return !!eventArr.find((ev) => this._compareEvents(ev, event));
+  }
+  _compareEvents(event1, event2) {
+    return JSON.stringify(event1) === JSON.stringify(event2);
   }
 }
 
