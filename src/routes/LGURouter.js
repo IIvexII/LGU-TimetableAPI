@@ -1,9 +1,8 @@
 const { Router } = require('express');
-const { LGUTimetable } = require('../controllers/LGUTimetable');
-const { Timetable } = require('../models');
+const { LGUController } = require('../controllers');
 
 const router = Router();
 
-router.get('/', LGUTimetable.get);
+router.get('/', LGUController.get);
 
 module.exports = router;

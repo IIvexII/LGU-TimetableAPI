@@ -1,6 +1,6 @@
 const { Timetable } = require('../models');
 
-class LGUTimetable {
+class LGUController {
   static async get(req, res) {
     const { session, semester, program, section } = req.data;
 
@@ -10,4 +10,4 @@ class LGUTimetable {
   static async getByDay(req, res) {}
 }
 
-module.exports = { LGUTimetable };
+module.exports = { LGUController };
