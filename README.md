@@ -28,7 +28,7 @@ Create an issue with the correct label.
 <br><br>
 
 ### For folks who wants to contribute ❤
-- please read [how to contribute](CONTRIBUTING.md) before getting started.
+- please read [how to contribute](https://github.com/IIvexII/LGU-TimetableAPI/blob/main/CONTRIBUTING.md) before getting started.
 
 
  Clone the repo in your own local machine
