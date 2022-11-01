@@ -20,7 +20,7 @@ All Routes requires these parameters: `session`, `semester`, `degree`, `section`
  <br>
  
  ### Complete documents about project  📘
- - please read [how to Setup](https://github.com/IIvexII/LGU-TimetableAPI/tree/main/docs) before diving into project.
+ - please read [how to Setup](Docs) before diving into project.
  <br><br>
 
 ### See any issue ? ☠
