@@ -1,4 +1,4 @@
-const { Semester, Degree, Section } = require('../models');
+const { Semester, Degree, Section } = require('../scrapper');
 
 class Params {
   static _error = {
