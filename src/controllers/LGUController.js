@@ -1,4 +1,4 @@
-const { Timetable } = require('../models');
+const { Timetable } = require('../scrapper');
 
 class LGUController {
   static async get(req, res) {
