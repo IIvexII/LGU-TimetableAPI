@@ -1,5 +1,6 @@
-<h1 align='center'> LGU-TimetableAPI <h1>
-<h5 align='center'>Unofficial API for the timetable of Lahore Garrison University.<h5>
+<h1 align="center">LGU-TimetableAPI</hello>
+
+<h5 align="center"> Unofficial API for the timetable of Lahore Garrison University. </h5>
 
 ### Routes
 All Routes requires these parameters: `session`, `semester`, `degree`, `section`
