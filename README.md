@@ -45,4 +45,7 @@ Your contribution is highly appreciated 🙏.</br>
 [Get Timetable in JSON](https://lgu-timetable-api.deta.dev?session=jjedrbhv59rmhc871qs1i7gv97&semester=5&degree=BSCS&section=A) - **Note**: Login and provide session as paramtere
 <br><br>
 
-> This repository is maintained by [IIvexII](https://github.com/IIvexII). </br>
+<div align="center">
+<h4 font-weight="bold">This repository is maintained by <a href="https://github.com/IIvexII">IIvexII</a></h4>
+<p> Show some ❤️ by starring this awesome repository! </p>
+</div>
