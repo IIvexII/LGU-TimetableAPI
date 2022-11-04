@@ -15,7 +15,8 @@ All Routes requires these parameters: `session`, `semester`, `degree`, `section`
 <p align="left"> 
 
  <img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E">
- <img src="https://img.shields.io/badge/shell-1572B6?style=for-the-badge&logo=shell&logoColor=white">
+ <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white">
+ <img src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge">
  
  <br>
  
