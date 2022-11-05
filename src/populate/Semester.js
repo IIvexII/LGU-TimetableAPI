@@ -11,8 +11,10 @@ class Semester {
         // Find the semester if it already exists
         const semester = await SemesterModel.findOne({ key });
 
+        // Update the semester if it is found
         if (semester) {
           semester.value = data[key];
+          // Increment in Version.
           semester.__v++;
           semester.save();
         } else {
