@@ -1,8 +1,8 @@
 const { mongoose } = require('../database/connection');
 
 const semesterSchema = mongoose.Schema({
-  key: String,
-  value: String,
+  _id: String,
+  name: String,
 });
 
 const Semester = mongoose.model('Semester', semesterSchema);
