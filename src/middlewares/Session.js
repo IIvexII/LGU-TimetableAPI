@@ -1,4 +1,4 @@
-const { Semester } = require('../models');
+const { Semester } = require('../scrapper');
 
 class Session {
   static _error = {

@@ -3,13 +3,13 @@ const { JSDOM } = require('jsdom');
 const { Sync } = require('../utils/Sync');
 const { calculateTime } = require('../utils');
 const { paths } = require('../Enums');
-const { Model } = require('./Model');
+const { Scrapper } = require('./Scrapper');
 
 /*
  * This class is responsible for fetching
  * data from timetable.lgu.edu.pk
  */
-class Timetable extends Model {
+class Timetable extends Scrapper {
   /*
    * constructor of Timetable
    *

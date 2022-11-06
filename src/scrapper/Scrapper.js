@@ -1,4 +1,4 @@
-class Model {
+class Scrapper {
   /*
    * @params id<String>
    * @return one row in data
@@ -27,4 +27,4 @@ class Model {
   }
 }
 
-module.exports = { Model };
+module.exports = { Scrapper };

@@ -1,6 +1,5 @@
 require('dotenv').config();
 const { google } = require('googleapis');
-const { days } = require('../Enums');
 
 class GoogleCalendar {
   constructor() {

@@ -3,9 +3,9 @@ const { JSDOM } = require('jsdom');
 const { paths } = require('../Enums');
 const { Sync } = require('../utils');
 
-const { Model } = require('./Model');
+const { Scrapper } = require('./Scrapper');
 
-class Section extends Model {
+class Section extends Scrapper {
   constructor(session, semester, degree) {
     super();
     this.sync = new Sync(session);
