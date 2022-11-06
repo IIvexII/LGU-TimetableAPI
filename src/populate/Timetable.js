@@ -25,6 +25,8 @@ class Timetable {
       TimetableModel.create({
         semester: semester._id,
         degree: degree.degreeName,
+        section: section.sectionTag,
+
         timetable: timetable,
       });
     }

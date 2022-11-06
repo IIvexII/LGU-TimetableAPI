@@ -80,20 +80,16 @@ class TimetableController {
   static async getTimetable(req, res) {
     // const semester = req.query.semester;
     // const degree = req.query.degree;
+    // const section = req.query.section;
 
-    const semester = '1';
+    const semester = '3';
     const degree = 'BSCS';
     const section = 'A';
 
-    const timetable = await Timetable.findOne({});
-    console.log(timetable);
-    // const newSections = {};
-    // for (let section of sections) {
-    //   newSections[section.sectionId] = section.sectionTag;
-    // }
-    // res.send(newSections);
+    const timetable = await Timetable.findOne({ semester, degree, section });
+
+    res.send(timetable?.timetable);
   }
 }
 
-// TimetableController.getTimetable();
 module.exports = { TimetableController };
