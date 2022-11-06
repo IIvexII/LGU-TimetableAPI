@@ -12,7 +12,15 @@ class TimetableController {
     const timetable = new Timetable(session, semester, program, section);
     return await timetable.getAll();
   }
-
+  /* -----------------------------------
+   *  getSemesters() fetch semesters
+   *  from database
+   * -----------------------------------
+   * @params req, res
+   * @response {
+   *  semester_number: semester_full_name
+   * }
+   */
   static async getSemesters(req, res) {
     const semesters = await Semester.find({});
     const newSemesters = {};
