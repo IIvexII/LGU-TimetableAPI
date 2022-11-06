@@ -1,15 +1,36 @@
 const express = require('express');
-const { Session, Params } = require('./middlewares');
+const { Section } = require('./models');
 
-const LGURouter = require('./routes/LGURouter');
-const GCRouter = require('./routes/GCRouter');
+const { PopulateRouter, LGURouter, GCRouter } = require('./routes');
 
 const app = express();
-// Applying Middlewares to all routes
-app.use(Session.validate, Params.validate);
 
 app.use(GCRouter);
 app.use(LGURouter);
+app.use(PopulateRouter);
+
+app.get('/meta', async (req, res) => {
+  const sections = await Section.find({});
+  const arr = [];
+
+  for (let section of sections) {
+    arr.push({
+      semester: {
+        _id: section.degree.semester._id,
+        name: section.degree.semester.name,
+      },
+      degree: {
+        _id: section.degree.degreeId,
+        name: section.degree.degreeName,
+      },
+      section: {
+        _id: section.sectionId,
+        name: section.sectionTag,
+      },
+    });
+  }
+  res.send(arr);
+});
 
 app.listen(3000, () => {
   console.log('Listening on port 3000...');

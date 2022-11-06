@@ -22,6 +22,7 @@ class Session {
     if (semesters.length === 0) {
       return res.json(Session._error);
     }
+    req.data = { session: sessionId };
     next();
   }
 }
