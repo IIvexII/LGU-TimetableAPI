@@ -3,11 +3,12 @@
 <h5 align="center"> Unofficial API for the timetable of Lahore Garrison University. </h5>
 
 ### Routes
-All Routes requires these parameters: `session`, `semester`, `degree`, `section`
-| Route                      | Special Params             | Description    |
-|----------------------------|:------------:|:----------------|
-| `/`                        | _            | Fetch the timetable from `timetable.lgu.edu.pk` and return it in **JSON format**|
-| `/gc-integration`            | _            | Create events on google calendar based on the official timetable.               |
+| Route                      | Special Params             | Description                                            | Example                   |
+|----------------------------|:--------------------------:|:------------------------------------------------------:|---------------------------|
+| GET `/semesters`           | _                          | return a **JSON** Object containing semesters.         | [See Example](https://lgu-timetable-api.deta.dev/semesters)|
+| GET `/degrees`              | `semester`                | all the degree programs in a specific semester.        | [See Example](https://lgu-timetable-api.deta.dev/degrees?semester=5)|
+| GET `/sections`              | `semester`,`degree`      | all the section in a semester with via degree program. | [See Example](https://lgu-timetable-api.deta.dev/sections?semester=1&degree=BSCS)|
+| GET `/timetable`              | `semester`, `degree`, `section`      | all the degree programs in a specific semester.| [See Example](https://lgu-timetable-api.deta.dev/timetable?semester=3&degree=BSCS&section=A)|
 
 <br>
 
