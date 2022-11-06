@@ -1,17 +1,6 @@
-const { Semester } = require('../models');
-const { Timetable } = require('../scrapper');
+const { Semester, Degree, Section, Timetable } = require('../models');
 
 class TimetableController {
-  static async get(req, res) {
-    const timetable = await TimetableController.getTimetable(req.data);
-    res.send(timetable);
-  }
-  static async getTimetable(data) {
-    const { session, semester, program, section } = data;
-
-    const timetable = new Timetable(session, semester, program, section);
-    return await timetable.getAll();
-  }
   /* -----------------------------------
    *  getSemesters() fetch semesters
    *  from database
@@ -31,6 +20,80 @@ class TimetableController {
 
     res.send(newSemesters);
   }
+  /* -----------------------------------
+   *  getDegrees() fetch degrees
+   *  from database
+   * -----------------------------------
+   * @params req, res
+   * @response {
+   *  degree_id: degree_name
+   * }
+   */
+  static async getDegrees(req, res) {
+    const semester = req.query.semester;
+
+    const degrees = await Degree.find({
+      'semester._id': semester,
+    });
+    const newDegrees = {};
+
+    for (let degree of degrees) {
+      newDegrees[degree.degreeId] = degree.degreeName;
+    }
+
+    res.send(newDegrees);
+  }
+  /* -----------------------------------
+   *  getSections() fetch sections
+   *  from database
+   * -----------------------------------
+   * @params req, res
+   * @response {
+   *  section_id: section_tag
+   * }
+   */
+  static async getSections(req, res) {
+    const semester = req.query.semester;
+    const degree = req.query.degree;
+
+    const sections = await Section.find({
+      'degree.degreeName': degree,
+      'degree.semester._id': semester,
+    });
+    const newSections = {};
+
+    for (let section of sections) {
+      newSections[section.sectionId] = section.sectionTag;
+    }
+
+    res.send(newSections);
+  }
+  /* -----------------------------------
+   *  getTimetable() fetch timetable
+   *  from database
+   * -----------------------------------
+   * @params req, res
+   * @response {
+   *  section_id: section_tag
+   * }
+   */
+  static async getTimetable(req, res) {
+    // const semester = req.query.semester;
+    // const degree = req.query.degree;
+
+    const semester = '1';
+    const degree = 'BSCS';
+    const section = 'A';
+
+    const timetable = await Timetable.findOne({});
+    console.log(timetable);
+    // const newSections = {};
+    // for (let section of sections) {
+    //   newSections[section.sectionId] = section.sectionTag;
+    // }
+    // res.send(newSections);
+  }
 }
 
+// TimetableController.getTimetable();
 module.exports = { TimetableController };

@@ -17,7 +17,7 @@ class Timetable {
       const degree = section.degree;
       const timetableScrapper = new TimetableScrapper(
         session,
-        semester.name,
+        semester._id,
         degree.degreeId,
         section.sectionId,
       );
