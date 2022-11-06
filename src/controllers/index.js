@@ -1,9 +1,9 @@
 const { GCController } = require('./GCController');
-const { LGUController } = require('./LGUController');
+const { TimetableController } = require('./TimetableController');
 const { PopulateController } = require('./PopulateController');
 
 module.exports = {
   GCController,
-  LGUController,
+  TimetableController,
   PopulateController,
 };

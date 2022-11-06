@@ -23,8 +23,10 @@ class Timetable {
       );
       const timetable = await timetableScrapper.getAll();
       TimetableModel.create({
-        semester: semester.name,
+        semester: semester._id,
         degree: degree.degreeName,
+        section: section.sectionTag,
+
         timetable: timetable,
       });
     }
