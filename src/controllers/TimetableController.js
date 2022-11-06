@@ -78,13 +78,9 @@ class TimetableController {
    * }
    */
   static async getTimetable(req, res) {
-    // const semester = req.query.semester;
-    // const degree = req.query.degree;
-    // const section = req.query.section;
-
-    const semester = '3';
-    const degree = 'BSCS';
-    const section = 'A';
+    const semester = req.query.semester;
+    const degree = req.query.degree;
+    const section = req.query.section;
 
     const timetable = await Timetable.findOne({ semester, degree, section });
 
