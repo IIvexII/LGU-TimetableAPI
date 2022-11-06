@@ -22,4 +22,9 @@
 
 - Add the refresh token, client id and client secret in `.env` file of the project.
 
+- runs development server
+  ```bash
+    npm start
+  ```
+
 ### :tada: Eveything will start to work from now.

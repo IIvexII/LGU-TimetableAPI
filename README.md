@@ -1,5 +1,6 @@
-<h1 align='center'> LGU-TimetableAPI <h1>
-<h5 align='center'>Unofficial API for the timetable of Lahore Garrison University.<h5>
+<h1 align="center">LGU-TimetableAPI</hello>
+
+<h5 align="center"> Unofficial API for the timetable of Lahore Garrison University. </h5>
 
 ### Routes
 All Routes requires these parameters: `session`, `semester`, `degree`, `section`
@@ -15,7 +16,8 @@ All Routes requires these parameters: `session`, `semester`, `degree`, `section`
 <p align="left"> 
 
  <img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E">
- <img src="https://img.shields.io/badge/shell-1572B6?style=for-the-badge&logo=shell&logoColor=white">
+ <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white">
+ <img src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge">
  
  <br>
  
@@ -44,4 +46,20 @@ Your contribution is highly appreciated 🙏.</br>
 [Get Timetable in JSON](https://lgu-timetable-api.deta.dev?session=jjedrbhv59rmhc871qs1i7gv97&semester=5&degree=BSCS&section=A) - **Note**: Login and provide session as paramtere
 <br><br>
 
-> This repository is maintained by [IIvexII](https://github.com/IIvexII). </br>
+## Repo Status
+
+![GitHub Issues Open](https://img.shields.io/github/issues/IIvexII/LGU-TimetableAPI?style=for-the-badge&color=green)
+![GitHub PR Open](https://img.shields.io/github/issues-pr/IIvexII/LGU-TimetableAPI?style=for-the-badge&color=aqua)
+![GitHub PR closed](https://img.shields.io/github/issues-pr-closed-raw/IIvexII/LGU-TimetableAPI?style=for-the-badge&color=blue)
+![GitHub language count](https://img.shields.io/github/languages/count/IIvexII/LGU-TimetableAPI?style=for-the-badge&color=brightgreen)
+
+## Our Contributors 
+
+<a href="https://github.com/IIvexII/LGU-TimetableAPI/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=IIvexII/LGU-TimetableAPI" />
+</a>
+
+<div align="center">
+<h4 font-weight="bold">This repository is maintained by <a href="https://github.com/IIvexII">IIvexII</a></h4>
+<p> Show some ❤️ by starring this awesome repository! </p>
+</div>
