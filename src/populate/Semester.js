@@ -26,6 +26,7 @@ class Semester {
         }
       }
     });
+    console.log('Done populating Semester collection!');
   }
 }
 

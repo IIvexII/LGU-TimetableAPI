@@ -22,12 +22,11 @@ class Degree {
             semester: semester,
             degreeId: degreeId,
             degreeName: degrees[degreeId],
-          }).then((msg) => {
-            console.log(msg);
           });
         }
       }
     });
+    console.log('Done populating Degree collection!');
   }
 }
 

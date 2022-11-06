@@ -1,11 +1,11 @@
-const { Degree } = require('./Degree');
 const { Section } = require('./Section');
+const { Degree } = require('./Degree');
 const { Semester } = require('./Semester');
 const { Timetable } = require('./Timetable');
 
 module.exports = {
-  Degree,
   Section,
   Semester,
+  Degree,
   Timetable,
 };

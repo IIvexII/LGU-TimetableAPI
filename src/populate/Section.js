@@ -27,12 +27,11 @@ class Section {
             degree: degree,
             sectionId: sectionId,
             sectionTag: sections[sectionId],
-          }).then((msg) => {
-            console.log(msg);
           });
         }
       }
     });
+    console.log('Done populating Section collection!');
   }
 }
 
