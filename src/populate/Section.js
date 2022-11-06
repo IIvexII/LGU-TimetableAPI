@@ -5,16 +5,16 @@ const { Section: SectionModel } = require('../models/Section');
 const { Section: SectionScrapper } = require('../scrapper');
 
 class Section {
-  static populate() {
+  static async populate(session) {
     // Drop the collection
     SectionModel.collection.drop();
 
     // get all degrees from database
-    DegreeModel.find({}).then(async (degrees) => {
+    await DegreeModel.find({}).then(async (degrees) => {
       // loop through all degrees
       for (let degree of degrees) {
         const sectionScrapper = new SectionScrapper(
-          process.env.SESSION,
+          session,
           degree.semester.name,
           degree.degreeId,
         );

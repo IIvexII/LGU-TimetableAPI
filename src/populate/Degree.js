@@ -5,18 +5,15 @@ const { Semester: SemesterModel } = require('../models/Semester');
 const { Degree: DegreeScrapper } = require('../scrapper');
 
 class Degree {
-  static populate() {
+  static async populate(session) {
     // Drop the collection
     DegreeModel.collection.drop();
 
     // get all semesters from database
-    SemesterModel.find({}).then(async (semesters) => {
+    await SemesterModel.find({}).then(async (semesters) => {
       // loop through all semesters
       for (let semester of semesters) {
-        const degreesScrapper = new DegreeScrapper(
-          process.env.SESSION,
-          semester.name,
-        );
+        const degreesScrapper = new DegreeScrapper(session, semester.name);
 
         // Get the degrees for every semester
         const degrees = await degreesScrapper.getAll();

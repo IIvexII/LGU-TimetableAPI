@@ -2,11 +2,11 @@ const { Semester: SemesterModel } = require('../models/Semester');
 const { Semester: SemesterScrapper } = require('../scrapper');
 
 class Semester {
-  static populate() {
-    const semester = new SemesterScrapper('jjedrbhv59rmhc871qs1i7gv97');
+  static async populate(session) {
+    const semester = new SemesterScrapper(session);
 
     // Scrap all semesters from website.
-    semester.getAll().then(async (data) => {
+    await semester.getAll().then(async (data) => {
       for (let key of Object.keys(data)) {
         // Find the semester if it already exists
         const semester = await SemesterModel.findOne({ _id: key });
@@ -29,4 +29,4 @@ class Semester {
   }
 }
 
-Semester.populate();
+module.exports = { Semester };
