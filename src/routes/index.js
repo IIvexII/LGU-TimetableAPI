@@ -1,9 +1,9 @@
 const GCRouter = require('./GCRouter');
-const LGURouter = require('./LGURouter');
+const TimetableRouter = require('./TimetableRouter');
 const PopulateRouter = require('./PopulateRouter');
 
 module.exports = {
   GCRouter,
-  LGURouter,
+  TimetableRouter,
   PopulateRouter,
 };

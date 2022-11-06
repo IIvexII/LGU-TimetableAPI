@@ -1,4 +1,4 @@
-const { LGUController } = require('./LGUController');
+const { LGUController } = require('./TimetableController');
 const { GoogleCalendar } = require('../lib/GoogleCalendar');
 const { createDate } = require('../utils');
 
