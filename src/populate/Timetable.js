@@ -17,13 +17,13 @@ class Timetable {
       const degree = section.degree;
       const timetableScrapper = new TimetableScrapper(
         session,
-        semester._id,
+        semester.name,
         degree.degreeId,
         section.sectionId,
       );
       const timetable = await timetableScrapper.getAll();
       TimetableModel.create({
-        semester: semester.name,
+        semester: semester._id,
         degree: degree.degreeName,
         timetable: timetable,
       });
