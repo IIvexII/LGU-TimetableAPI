@@ -86,6 +86,27 @@ class TimetableController {
 
     res.send(timetable?.timetable);
   }
+  static async getMetadata(req, res) {
+    const sections = await Section.find({});
+    const metadata = {};
+
+    for (let section of sections) {
+      if (metadata[section.degree.semester.name]?.length > 0) {
+        metadata[section.degree.semester.name].push({
+          degree: section.degree.degreeName,
+          section: section.sectionTag,
+        });
+      } else {
+        metadata[section.degree.semester.name] = [
+          {
+            degree: section.degree.degreeName,
+            section: section.sectionTag,
+          },
+        ];
+      }
+    }
+    res.send(metadata);
+  }
 }
 
 module.exports = { TimetableController };
