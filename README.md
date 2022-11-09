@@ -34,13 +34,12 @@
 
 <div align='center'><img src='https://user-images.githubusercontent.com/41378765/200203572-b2e45699-0d3e-423a-b9a6-2cc2578578ef.gif' width='1024'></div>
 
-
 ## Key Features
 
-* 📑 Provide data in **JSON**
-* 🤝 APIs for all the important data like `semesters`, `degrees`, `sections` and `timetable`
-* ⚡ Fast and easy to use
-* 🔻 ligneweight with avg response size of `633.38 bytes` per request
+- 📑 Provide data in **JSON**
+- 🤝 APIs for all the important data like `semesters`, `degrees`, `sections` and `timetable`
+- ⚡ Fast and easy to use
+- 🔻 ligneweight with avg response size of `633.38 bytes` per request
 
 ## How To Use
 
@@ -63,20 +62,19 @@ $ npm start
 > **Note**
 > If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
 
-
 ## Download
 
 You can [download](https://github.com/IIvexII/LGU-TimetableAPI/releases/tag/v1.0) the latest installable version of Timetable API for Windows, macOS and Linux.
 
 ## Routes
 
-| Route                      | Special Params             | Description                                            | Example                   |
-|----------------------------|:--------------------------:|:------------------------------------------------------:|---------------------------|
-| GET `/semesters`           | _                          | return a **JSON** Object containing semesters.         | [demo](https://lgu-timetable-api.deta.dev/semesters)|
-| GET `/degrees`              | `semester`                | all the degree programs in a specific semester.        | [demo](https://lgu-timetable-api.deta.dev/degrees?semester=5)|
-| GET `/sections`              | `semester`,`degree`      | all the section in a semester with via degree program. | [demo](https://lgu-timetable-api.deta.dev/sections?semester=1&degree=BSCS)|
-| GET `/timetable`              | `semester`, `degree`, `section`      | all the degree programs in a specific semester.| [demo](https://lgu-timetable-api.deta.dev/timetable?semester=3&degree=BSCS&section=A)|
-
+| Route            |         Special Params          |                         Description                          | Example                                                                               |
+| ---------------- | :-----------------------------: | :----------------------------------------------------------: | ------------------------------------------------------------------------------------- |
+| GET `/semesters` |               \_                |        return a **JSON** Object containing semesters.        | [demo](https://lgu-timetable-api.deta.dev/semesters)                                  |
+| GET `/degrees`   |           `semester`            |       all the degree programs in a specific semester.        | [demo](https://lgu-timetable-api.deta.dev/degrees?semester=5)                         |
+| GET `/sections`  |       `semester`,`degree`       |    all the section in a semester with via degree program.    | [demo](https://lgu-timetable-api.deta.dev/sections?semester=1&degree=BSCS)            |
+| GET `/timetable` | `semester`, `degree`, `section` |       all the degree programs in a specific semester.        | [demo](https://lgu-timetable-api.deta.dev/timetable?semester=3&degree=BSCS&section=A) |
+| GET `/metadata`  |               \_                | all the metadata about `sections`, `semesters` and `degrees` | [demo](https://lgu-timetable-api.deta.dev/timetable?semester=3&degree=BSCS&section=A) |
 
 ## Credits
 
@@ -91,8 +89,7 @@ This software uses the following open source packages:
 
 [LGU Timetable Front-end](https://github.com/Zain-ul-din/LGU-BetterTimeTable) - Lightweight timetable frontend on top of this API.
 
-
-## Our Contributors 
+## Our Contributors
 
 <a href="https://github.com/IIvexII/LGU-TimetableAPI/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=IIvexII/LGU-TimetableAPI" />
@@ -105,4 +102,4 @@ This software uses the following open source packages:
 
 ## License
 
-MIT -  ✔️ Commercial use  ✔️ Modification ✔️ Distribution ✔️ Private use 
+MIT - ✔️ Commercial use ✔️ Modification ✔️ Distribution ✔️ Private use

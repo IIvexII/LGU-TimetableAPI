@@ -86,6 +86,17 @@ class TimetableController {
 
     res.send(timetable?.timetable);
   }
+  /* ---------------------------------------
+   *  getMetadata() return data that is
+   *  useful for fetching a timetable
+   * ---------------------------------------
+   * @params req, res
+   * @response {
+   *  [semester_full_name]: {
+   *    [degree_name]: Arr<semester_tags>
+   *  }
+   * }
+   */
   static async getMetadata(req, res) {
     const sections = await Section.find({});
     const metadata = {};
