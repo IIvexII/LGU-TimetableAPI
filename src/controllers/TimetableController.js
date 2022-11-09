@@ -86,24 +86,40 @@ class TimetableController {
 
     res.send(timetable?.timetable);
   }
+  /* ---------------------------------------
+   *  getMetadata() return data that is
+   *  useful for fetching a timetable
+   * ---------------------------------------
+   * @params req, res
+   * @response {
+   *  [semester_full_name]: {
+   *    [degree_name]: Arr<semester_tags>
+   *  }
+   * }
+   */
   static async getMetadata(req, res) {
     const sections = await Section.find({});
     const metadata = {};
+    let data = {};
 
     for (let section of sections) {
-      if (metadata[section.degree.semester.name]?.length > 0) {
-        metadata[section.degree.semester.name].push({
-          degree: section.degree.degreeName,
-          section: section.sectionTag,
-        });
+      const semesterName = section.degree.semester.name;
+      const degreeName = section.degree.degreeName;
+      const sectionTag = section.sectionTag;
+
+      let sectionArr = [];
+      if (data[degreeName]?.length > 0) {
+        sectionArr = data[degreeName];
+        sectionArr.push(sectionTag);
       } else {
-        metadata[section.degree.semester.name] = [
-          {
-            degree: section.degree.degreeName,
-            section: section.sectionTag,
-          },
-        ];
+        sectionArr = [sectionTag];
       }
+
+      data = {
+        [degreeName]: sectionArr,
+      };
+
+      metadata[semesterName] = { ...metadata[semesterName], ...data };
     }
     res.send(metadata);
   }
