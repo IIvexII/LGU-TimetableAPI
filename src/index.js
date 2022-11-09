@@ -5,7 +5,14 @@ const { PopulateRouter, TimetableRouter, GCRouter } = require('./routes');
 
 const app = express();
 
-app.use(cors({})); // allow all
+app.use(
+  cors({
+    origin: '*',
+    credentials: false,
+    methods: ['GET'],
+  }),
+);
+
 app.use(GCRouter);
 app.use(TimetableRouter);
 app.use(PopulateRouter);
