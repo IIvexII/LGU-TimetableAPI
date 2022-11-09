@@ -113,5 +113,5 @@ class TimetableController {
     res.send(metadata);
   }
 }
-// TimetableController.getMetadata();
+
 module.exports = { TimetableController };
