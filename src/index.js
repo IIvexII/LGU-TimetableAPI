@@ -6,7 +6,7 @@ const { PopulateRouter, TimetableRouter, GCRouter } = require('./routes');
 const app = express();
 
 app
-.use (cors ({})) // allow all
+.use (cors ({origin: "*"})) // allow all
 .use(GCRouter)
 .use(TimetableRouter)
 .use(PopulateRouter)
