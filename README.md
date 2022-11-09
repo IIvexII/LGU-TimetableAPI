@@ -74,7 +74,7 @@ You can [download](https://github.com/IIvexII/LGU-TimetableAPI/releases/tag/v1.0
 | GET `/degrees`   |           `semester`            |       all the degree programs in a specific semester.        | [demo](https://lgu-timetable-api.deta.dev/degrees?semester=5)                         |
 | GET `/sections`  |       `semester`,`degree`       |    all the section in a semester with via degree program.    | [demo](https://lgu-timetable-api.deta.dev/sections?semester=1&degree=BSCS)            |
 | GET `/timetable` | `semester`, `degree`, `section` |       all the degree programs in a specific semester.        | [demo](https://lgu-timetable-api.deta.dev/timetable?semester=3&degree=BSCS&section=A) |
-| GET `/metadata`  |               \_                | all the metadata about `sections`, `semesters` and `degrees` | [demo](https://lgu-timetable-api.deta.dev/timetable?semester=3&degree=BSCS&section=A) |
+| GET `/metadata`  |               \_                | all the metadata about `sections`, `semesters` and `degrees` | [demo](https://lgu-timetable-api.deta.dev/metadata) |
 
 ## Credits
 
