@@ -11,5 +11,17 @@ class PopulateController {
 
     res.send('Successfully Populated!');
   }
+  static async populateTimetable(req, res) {
+    const { session, semester, program, section } = req.data;
+
+    const populate = await Timetable.populateOne(
+      session,
+      semester,
+      program,
+      section,
+    );
+
+    res.send(populate);
+  }
 }
 module.exports = { PopulateController };
