@@ -1,4 +1,3 @@
-require('dotenv').config();
 const {
   Section: SectionModel,
   Timetable: TimetableModel,
