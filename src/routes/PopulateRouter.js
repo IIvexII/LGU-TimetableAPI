@@ -6,10 +6,14 @@ const router = Router();
 router.use(Session.validate);
 
 router.get('/populate', PopulateController.populate);
+router.get('/populateSemesters', PopulateController.populateSemesters);
+router.get('/populateDegrees', PopulateController.populateDegrees);
+router.get('/populateSections', PopulateController.populateSections);
+router.get('/populateTimetables', PopulateController.populateTimetables);
 router.get(
-  '/populateTimetable',
+  '/populateOneTimetable',
   Params.validate,
-  PopulateController.populateTimetable,
+  PopulateController.populateOneTimetable,
 );
 
 module.exports = router;
