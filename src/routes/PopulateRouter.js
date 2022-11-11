@@ -6,6 +6,7 @@ const router = Router();
 router.use(Session.validate);
 
 router.get('/populate', PopulateController.populate);
+router.get('/populateSemesters', PopulateController.populateSemesters);
 router.get(
   '/populateOneTimetable',
   Params.validate,
