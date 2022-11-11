@@ -30,5 +30,12 @@ class PopulateController {
 
     res.send('Successfully Populated Semesters!');
   }
+  static async populateDegrees(req, res) {
+    const { session } = req.data;
+
+    await Degree.populate(session);
+
+    res.send('Successfully Populated Degrees!');
+  }
 }
 module.exports = { PopulateController };

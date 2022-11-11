@@ -7,6 +7,7 @@ router.use(Session.validate);
 
 router.get('/populate', PopulateController.populate);
 router.get('/populateSemesters', PopulateController.populateSemesters);
+router.get('/populateDegrees', PopulateController.populateDegrees);
 router.get(
   '/populateOneTimetable',
   Params.validate,
