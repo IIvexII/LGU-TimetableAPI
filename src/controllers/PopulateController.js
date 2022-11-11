@@ -11,18 +11,6 @@ class PopulateController {
 
     res.send('Successfully Populated!');
   }
-  static async populateOneTimetable(req, res) {
-    const { session, semester, program, section } = req.data;
-
-    const populate = await Timetable.populateOne(
-      session,
-      semester,
-      program,
-      section,
-    );
-
-    res.send(populate);
-  }
   static async populateSemesters(req, res) {
     const { session } = req.data;
 
@@ -43,6 +31,25 @@ class PopulateController {
     await Section.populate(session);
 
     res.send('Successfully Populated Sections!');
+  }
+  static async populateOneTimetable(req, res) {
+    const { session, semester, program, section } = req.data;
+
+    const populate = await Timetable.populateOne(
+      session,
+      semester,
+      program,
+      section,
+    );
+
+    res.send(populate);
+  }
+  static async populateTimetables(req, res) {
+    const { session } = req.data;
+
+    await Timetable.populate(session);
+
+    res.send('Successfully Populated Timetables!');
   }
 }
 module.exports = { PopulateController };

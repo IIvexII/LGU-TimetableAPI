@@ -9,6 +9,7 @@ router.get('/populate', PopulateController.populate);
 router.get('/populateSemesters', PopulateController.populateSemesters);
 router.get('/populateDegrees', PopulateController.populateDegrees);
 router.get('/populateSections', PopulateController.populateSections);
+router.get('/populateTimetables', PopulateController.populateTimetables);
 router.get(
   '/populateOneTimetable',
   Params.validate,
