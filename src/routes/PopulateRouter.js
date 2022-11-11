@@ -7,9 +7,9 @@ router.use(Session.validate);
 
 router.get('/populate', PopulateController.populate);
 router.get(
-  '/populateTimetable',
+  '/populateOneTimetable',
   Params.validate,
-  PopulateController.populateTimetable,
+  PopulateController.populateOneTimetable,
 );
 
 module.exports = router;
