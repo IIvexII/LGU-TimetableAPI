@@ -15,6 +15,6 @@ app.use(
 
 app.use(GCRouter);
 app.use(TimetableRouter);
-// app.use(PopulateRouter);
+app.use(PopulateRouter);
 
 module.exports = app;
