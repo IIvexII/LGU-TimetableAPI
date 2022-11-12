@@ -1,10 +1,10 @@
-require('dotenv').config();
 const {
   Section: SectionModel,
   Timetable: TimetableModel,
 } = require('../models');
 
 const { Timetable: TimetableScrapper } = require('../scrapper');
+const { verifyParams } = require('../utils/helpers');
 
 class Timetable {
   static async populate(session) {
@@ -31,6 +31,47 @@ class Timetable {
       });
     }
     console.log('Done populating Timetable collection!');
+  }
+
+  static async populateOne(session, semesterId, degreeName, sectionName) {
+    const metadata = await verifyParams(semesterId, degreeName, sectionName);
+
+    if (metadata) {
+      const timetableScrapper = new TimetableScrapper(
+        session,
+        semesterId,
+        degreeName,
+        sectionName,
+      );
+      // scrap the timetable
+      const timetable = await timetableScrapper.getAll();
+
+      // check if the table already exist
+      const foundTimetable = await TimetableModel.findOne({
+        semester: metadata.semester.semesterId,
+        degree: metadata.degree.degreeName,
+        section: metadata.section.sectionName,
+      });
+
+      // update the timetable if it exist
+      if (foundTimetable) {
+        foundTimetable.timetable = timetable;
+        foundTimetable.save();
+
+        return 'Successfully updated the timetable';
+      } else {
+        // create timetable if it does not exist
+        TimetableModel.create({
+          semester: metadata.semester.semesterId,
+          degree: metadata.degree.degreeName,
+          section: metadata.section.sectionName,
+          timetable: timetable,
+        });
+        return 'Successfully created the timetable';
+      }
+    } else {
+      return 'Failed to find the document';
+    }
   }
 }
 

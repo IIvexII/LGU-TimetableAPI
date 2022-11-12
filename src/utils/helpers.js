@@ -1,4 +1,5 @@
 const { days } = require('../Enums');
+const { Section: SectionModel } = require('../models');
 /* ------------------------------------
  * This method calculates time
  * using the number of sessions and
@@ -38,4 +39,29 @@ function createDate(day, hours, minites) {
   return new Date(date.toLocaleString('en-us', { timeZone: 'Asia/Karachi' }));
 }
 
-module.exports = { calculateTime, createDate };
+async function verifyParams(semesterName, degreeId, sectionId) {
+  // find the required data via section
+  const section = await SectionModel.findOne({
+    'degree.semester.name': semesterName,
+    'degree.degreeId': degreeId,
+    sectionId: sectionId,
+  });
+
+  if (section) {
+    const {
+      degree: {
+        degreeName,
+        semester: { _id: semesterId },
+      },
+      sectionTag: sectionName,
+    } = section;
+
+    return {
+      semester: { semesterId, semesterName },
+      degree: { degreeId, degreeName },
+      section: { sectionId, sectionName },
+    };
+  }
+}
+
+module.exports = { calculateTime, createDate, verifyParams };
