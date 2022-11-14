@@ -5,7 +5,7 @@ const { Sync } = require('../utils');
 
 const { Scrapper } = require('./Scrapper');
 
-class RoomDays extends Scrapper {
+class RoomDay extends Scrapper {
   constructor(session) {
     super();
     this.sync = new Sync(session);
@@ -40,4 +40,4 @@ class RoomDays extends Scrapper {
   }
 }
 
-module.exports = { RoomDays };
+module.exports = { RoomDay };
