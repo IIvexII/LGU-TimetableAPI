@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const { RoomDay: RoomDayModel } = require('../models');
 const { RoomDay: RoomDayScrapper } = require('../scrapper');
 
