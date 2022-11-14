@@ -8,7 +8,7 @@ class RoomDay {
       RoomDayModel.collection.drop();
 
       // Scrap the days
-      const roomDays = new RoomDayScrapper(process.env.SESSION);
+      const roomDays = new RoomDayScrapper(session);
       const days = await roomDays.getAll();
 
       for (let day in days) {

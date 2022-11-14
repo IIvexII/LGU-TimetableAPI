@@ -1,4 +1,10 @@
-const { Degree, Semester, Section, Timetable } = require('../populate');
+const {
+  Degree,
+  Semester,
+  Section,
+  Timetable,
+  RoomDay,
+} = require('../populate');
 
 class PopulateController {
   static async populate(req, res) {
@@ -8,6 +14,7 @@ class PopulateController {
     await Degree.populate(session);
     await Section.populate(session);
     await Timetable.populate(session);
+    await RoomDay.populate(session);
 
     res.send('Successfully Populated!');
   }
@@ -50,6 +57,13 @@ class PopulateController {
     await Timetable.populate(session);
 
     res.send('Successfully Populated Timetables!');
+  }
+  static async populateRoomDays(req, res) {
+    const { session } = req.data;
+
+    await RoomDay.populate(session);
+
+    res.send('Successfully Populated Room Days!');
   }
 }
 module.exports = { PopulateController };
