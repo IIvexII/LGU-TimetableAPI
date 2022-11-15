@@ -69,7 +69,7 @@ You can [download](https://github.com/IIvexII/LGU-TimetableAPI/releases/tag/v1.0
 ## Routes
 
 | Method |    Route     |         Special Params          |                         Description                          | Example                                                                               |
-| --------------------- | :-----------------------------: | :----------------------------------------------------------: | ------------------------------------------------------------------------------------- |
+| ------ | :----------: | :-----------------------------: | :----------------------------------------------------------: | ------------------------------------------------------------------------------------- |
 |  GET   | `/semesters` |               \_                |        return a **JSON** Object containing semesters.        | [demo](https://lgu-timetable-api.deta.dev/semesters)                                  |
 |  GET   | `/degrees`   |           `semester`            |       all the degree programs in a specific semester.        | [demo](https://lgu-timetable-api.deta.dev/degrees?semester=5)                         |
 |  GET   | `/sections`  |       `semester`,`degree`       |    all the section in a semester with via degree program.    | [demo](https://lgu-timetable-api.deta.dev/sections?semester=1&degree=BSCS)            |
