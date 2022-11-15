@@ -64,7 +64,7 @@ $ npm start
 
 ## Download
 
-You can [download](https://github.com/IIvexII/LGU-TimetableAPI/releases/tag/v1.0) the latest installable version of Timetable API for Windows, macOS and Linux.
+You can [download](https://github.com/IIvexII/LGU-TimetableAPI/releases/tag/v1.2) the latest installable version of Timetable API for Windows, macOS and Linux.
 
 ## Routes
 
