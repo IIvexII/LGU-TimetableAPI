@@ -64,17 +64,17 @@ $ npm start
 
 ## Download
 
-You can [download](https://github.com/IIvexII/LGU-TimetableAPI/releases/tag/v1.2) the latest installable version of Timetable API for Windows, macOS and Linux.
+You can [download](https://github.com/IIvexII/LGU-TimetableAPI/releases) the latest installable version of Timetable API for Windows, macOS and Linux.
 
 ## Routes
 
-| Route            |         Special Params          |                         Description                          | Example                                                                               |
-| ---------------- | :-----------------------------: | :----------------------------------------------------------: | ------------------------------------------------------------------------------------- |
-| GET `/semesters` |               \_                |        return a **JSON** Object containing semesters.        | [demo](https://lgu-timetable-api.deta.dev/semesters)                                  |
-| GET `/degrees`   |           `semester`            |       all the degree programs in a specific semester.        | [demo](https://lgu-timetable-api.deta.dev/degrees?semester=5)                         |
-| GET `/sections`  |       `semester`,`degree`       |    all the section in a semester with via degree program.    | [demo](https://lgu-timetable-api.deta.dev/sections?semester=1&degree=BSCS)            |
-| GET `/timetable` | `semester`, `degree`, `section` |       all the degree programs in a specific semester.        | [demo](https://lgu-timetable-api.deta.dev/timetable?semester=3&degree=BSCS&section=A) |
-| GET `/metadata`  |               \_                | all the metadata about `sections`, `semesters` and `degrees` | [demo](https://lgu-timetable-api.deta.dev/metadata) |
+| Method |    Route     |         Special Params          |                         Description                          | Example                                                                               |
+| ------ | :----------: | :-----------------------------: | :----------------------------------------------------------: | ------------------------------------------------------------------------------------- |
+|  GET   | `/semesters` |               \_                |        return a **JSON** Object containing semesters.        | [demo](https://lgu-timetable-api.deta.dev/semesters)                                  |
+|  GET   | `/degrees`   |           `semester`            |       all the degree programs in a specific semester.        | [demo](https://lgu-timetable-api.deta.dev/degrees?semester=5)                         |
+|  GET   | `/sections`  |       `semester`,`degree`       |    all the section in a semester with via degree program.    | [demo](https://lgu-timetable-api.deta.dev/sections?semester=1&degree=BSCS)            |
+|  GET   | `/timetable` | `semester`, `degree`, `section` |       all the degree programs in a specific semester.        | [demo](https://lgu-timetable-api.deta.dev/timetable?semester=3&degree=BSCS&section=A) |
+|  GET   | `/metadata`  |               \_                | all the metadata about `sections`, `semesters` and `degrees` | [demo](https://lgu-timetable-api.deta.dev/metadata) |                                 |
 
 ## Credits
 
