@@ -3,6 +3,7 @@ const { Degree } = require('./Degree');
 const { Semester } = require('./Semester');
 const { Timetable } = require('./Timetable');
 const { RoomDay } = require('./RoomDay');
+const { Room } = require('./Room');
 
 module.exports = {
   Section,
@@ -10,4 +11,5 @@ module.exports = {
   Degree,
   Timetable,
   RoomDay,
+  Room,
 };
