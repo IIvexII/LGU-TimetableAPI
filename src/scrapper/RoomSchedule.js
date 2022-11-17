@@ -21,7 +21,7 @@ class RoomSchedule extends Scrapper {
    *  }>
    */
   async _parse() {
-    // const schedules = {};
+    const schedules = {};
     const res = await this._fetch();
     const { document } = new JSDOM(res).window;
     const scheduleRows = document.querySelectorAll(
@@ -30,7 +30,27 @@ class RoomSchedule extends Scrapper {
 
     scheduleRows.forEach((row) => {
       const roomName = row.querySelector('th').textContent.trim();
+      const lectures = row.querySelectorAll('td');
+
+      lectures.forEach((lecture) => {
+        if (lecture.textContent.trim() !== 'X') {
+          const subject = lecture.querySelector('.style2');
+          const teacher = lecture.querySelector('.style3');
+
+          if (subject && teacher) {
+            const lectureInfo = {
+              subject: subject.textContent.trim(),
+              teacher: teacher.textContent.trim(),
+            };
+            schedules[roomName] =
+              schedules[roomName]?.length > 0
+                ? schedules[roomName].push(lectureInfo)
+                : [lectureInfo];
+          }
+        }
+      });
     });
+    // console.log(schedules);
   }
   /*
    * @params none
@@ -48,6 +68,6 @@ const rs = new RoomSchedule(
   'jjedrbhv59rmhc871qs1i7gv97',
   'c4ca4238a0b923820dcc509a6f75849b',
 );
-rs._parse().then((data) => console.log(data));
+rs.getAll();
 
 module.exports = { RoomSchedule };
