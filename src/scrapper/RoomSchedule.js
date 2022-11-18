@@ -33,24 +33,49 @@ class RoomSchedule extends Scrapper {
       const lectures = row.querySelectorAll('td');
 
       lectures.forEach((lecture) => {
+        // If the table cell has X which
+        // means no lecture at that time
         if (lecture.textContent.trim() !== 'X') {
+          // find and store the subject, teacher and time info.
           const subject = lecture.querySelector('.style2');
-          const teacher = lecture.querySelector('.style3');
+          const teacher = lecture.querySelector('.style4');
 
-          if (subject && teacher) {
+          // time range is in 00:00 - 00:00
+          // so this will split it into two part
+          const timeRange = lecture
+            .querySelectorAll('.style3')[1]
+            ?.textContent.split('-');
+
+          // if time range exist then store the schedule
+          const startTime = timeRange && timeRange[0].trim();
+          const endTime = timeRange && timeRange[1].trim();
+
+          if (subject && teacher && startTime && endTime) {
             const lectureInfo = {
               subject: subject.textContent.trim(),
               teacher: teacher.textContent.trim(),
+              startTime: {
+                hours: startTime.split(':')[0],
+                minutes: startTime.split(':')[1],
+              },
+              endTime: {
+                hours: endTime.split(':')[0],
+                minutes: endTime.split(':')[1],
+              },
             };
-            schedules[roomName] =
-              schedules[roomName]?.length > 0
-                ? schedules[roomName].push(lectureInfo)
-                : [lectureInfo];
+
+            // push into array if exist or create otherwise
+            if (schedules[roomName]?.length > 0) {
+              schedules[roomName].push(lectureInfo);
+            } else {
+              schedules[roomName] = [lectureInfo];
+            }
           }
         }
       });
     });
-    // console.log(schedules);
+
+    return schedules;
   }
   /*
    * @params none
@@ -63,11 +88,5 @@ class RoomSchedule extends Scrapper {
     return res.data;
   }
 }
-
-const rs = new RoomSchedule(
-  'jjedrbhv59rmhc871qs1i7gv97',
-  'c4ca4238a0b923820dcc509a6f75849b',
-);
-rs.getAll();
 
 module.exports = { RoomSchedule };
