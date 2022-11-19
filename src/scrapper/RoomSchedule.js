@@ -54,14 +54,8 @@ class RoomSchedule extends Scrapper {
             const lectureInfo = {
               subject: subject.textContent.trim(),
               teacher: teacher.textContent.trim(),
-              startTime: {
-                hours: startTime.split(':')[0],
-                minutes: startTime.split(':')[1],
-              },
-              endTime: {
-                hours: endTime.split(':')[0],
-                minutes: endTime.split(':')[1],
-              },
+              startTime: startTime,
+              endTime: endTime,
             };
 
             // push into array if exist or create otherwise
