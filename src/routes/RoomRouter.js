@@ -6,6 +6,6 @@ const router = Router();
 
 router.get('/days', RoomController.getDays);
 router.get('/rooms', RoomController.getRooms);
-router.get('/freeRooms', RoomController.getFreeRooms);
+router.get('/allFreeRooms', RoomController.getFreeRooms);
 
 module.exports = router;
