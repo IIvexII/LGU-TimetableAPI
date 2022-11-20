@@ -1,5 +1,5 @@
 const { RoomDay: RoomDayModel } = require('../models');
-const { RoomSchedule: RoomScheduleModel } = require('../models');
+const { FreeRoom: FreeRoomModel } = require('../models');
 
 const { RoomSchedule: RoomScheduleScrapper } = require('../scrapper');
 
@@ -7,7 +7,7 @@ class FreeRooms {
   static async populate(session) {
     try {
       // Drop the collection
-      // RoomScheduleModel.collection.drop();
+      FreeRoomModel.collection.drop();
 
       const days = await RoomDayModel.find({});
 
@@ -33,7 +33,7 @@ class FreeRooms {
 
             // when the 2 lectures have gap in it
             if (cEndTime !== nStartTime) {
-              console.log({
+              FreeRoomModel.create({
                 day: day.day,
                 room: roomName,
                 startTime: cEndTime,
@@ -43,7 +43,7 @@ class FreeRooms {
             // when last lecture don't end at the university end time.
             // which means last lecture ends time < 4:00 PM
             if (i + 2 === lectures.length && nEndTime !== uniEndTime) {
-              console.log({
+              FreeRoomModel.create({
                 day: day.day,
                 room: roomName,
                 startTime: nEndTime,
@@ -52,22 +52,13 @@ class FreeRooms {
             }
             // When there is no first lecture
             if (i - 1 === 0 && cStartTime !== uniStartTime) {
-              console.log({
+              FreeRoomModel.create({
                 day: day.day,
                 room: roomName,
                 startTime: uniStartTime,
                 endTime: cStartTime,
               });
             }
-            // const schedule = {
-            //   room: roomName,
-            //   subject: lecture.subject,
-            //   teacher: lecture.teacher,
-            //   day: day.day,
-            //   startTime: lecture.startTime,
-            //   endTime: lecture.endTime,
-            // };
-            // Room.create(schedule);
           }
         }
       }
@@ -78,5 +69,7 @@ class FreeRooms {
     return 'Free room Populated Successfully!';
   }
 }
-FreeRooms.populate('jjedrbhv59rmhc871qs1i7gv97');
+FreeRooms.populate('jjedrbhv59rmhc871qs1i7gv97').then((msg) => {
+  console.log(msg);
+});
 module.exports = { FreeRooms };
