@@ -1,4 +1,4 @@
-const { RoomDay, Room } = require('../models');
+const { RoomDay, Room, FreeRoom } = require('../models');
 
 class RoomController {
   static async getDays(req, res) {
@@ -20,6 +20,26 @@ class RoomController {
       rooms[data[key].room] = data[key]._id;
     }
     res.send(rooms);
+  }
+  static async getFreeRooms(req, res) {
+    const freeRooms = {};
+
+    const freeSlots = await FreeRoom.find({});
+
+    for (let freeSlot of freeSlots) {
+      const freeRoom = {
+        room: freeSlot.room,
+        startTime: freeSlot.startTime,
+        endTime: freeSlot.endTime,
+      };
+
+      if (freeRooms[freeSlot.day]?.length > 0) {
+        freeRooms[freeSlot.day].push(freeRoom);
+      } else {
+        freeRooms[freeSlot.day] = [freeRoom];
+      }
+    }
+    res.send(freeRooms);
   }
 }
 
