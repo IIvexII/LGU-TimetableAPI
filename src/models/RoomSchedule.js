@@ -4,6 +4,7 @@ const roomScheduleSchema = mongoose.Schema({
   room: String,
   subject: String,
   teacher: String,
+  day: String,
   startTime: String,
   endTime: String,
 });
