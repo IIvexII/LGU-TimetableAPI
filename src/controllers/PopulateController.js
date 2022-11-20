@@ -4,6 +4,7 @@ const {
   Section,
   Timetable,
   RoomDay,
+  RoomSchedule,
 } = require('../populate');
 
 class PopulateController {
@@ -15,6 +16,7 @@ class PopulateController {
     await Section.populate(session);
     await Timetable.populate(session);
     await RoomDay.populate(session);
+    await RoomSchedule.populate(session);
 
     res.send('Successfully Populated!');
   }
@@ -64,6 +66,13 @@ class PopulateController {
     await RoomDay.populate(session);
 
     res.send('Successfully Populated Room Days!');
+  }
+  static async populateRoomTimetables(req, res) {
+    const { session } = req.data;
+
+    const msg = await RoomSchedule.populate(session);
+
+    res.send(msg);
   }
 }
 module.exports = { PopulateController };
