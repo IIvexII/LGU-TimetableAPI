@@ -5,6 +5,7 @@ const { Timetable } = require('./Timetable');
 const { RoomDay } = require('./RoomDay');
 const { Room } = require('./Room');
 const { RoomSchedule } = require('./RoomSchedule');
+const { FreeRoom } = require('./FreeRooms');
 
 module.exports = {
   Section,
@@ -14,4 +15,5 @@ module.exports = {
   RoomDay,
   Room,
   RoomSchedule,
+  FreeRoom,
 };
