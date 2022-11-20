@@ -41,6 +41,17 @@ class RoomController {
     }
     res.send(freeRooms);
   }
+  static async getSpecificFreeRooms(req, res) {
+    const day = req.query?.day;
+    const time = req.query?.time;
+
+    const freeSlots = await FreeRoom.find(
+      { day, startTime: time },
+      { _id: false, __v: false },
+    );
+
+    res.send(freeSlots);
+  }
 }
 
 module.exports = { RoomController };
