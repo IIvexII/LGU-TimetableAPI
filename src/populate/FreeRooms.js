@@ -69,7 +69,5 @@ class FreeRooms {
     return 'Free room Populated Successfully!';
   }
 }
-FreeRooms.populate('jjedrbhv59rmhc871qs1i7gv97').then((msg) => {
-  console.log(msg);
-});
+
 module.exports = { FreeRooms };
