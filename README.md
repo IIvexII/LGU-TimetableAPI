@@ -78,7 +78,7 @@ You can [download](https://github.com/IIvexII/LGU-TimetableAPI/releases) the lat
 
 ## Credits
 
-This software uses the following open source packages:
+Technologies used in this project:
 
 [<img src='https://www.vectorlogo.zone/logos/nodejs/nodejs-ar21.svg' width=64 align='center' >](https://nodejs.org/)
 [<img src='https://www.vectorlogo.zone/logos/expressjs/expressjs-ar21.svg' width=64 align='center' >](https://expressjs.com/)
