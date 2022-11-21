@@ -76,7 +76,7 @@ You can [download](https://github.com/IIvexII/LGU-TimetableAPI/releases) the lat
 |  GET   | `/timetable` | `semester`, `degree`, `section` |       all the degree programs in a specific semester.        | [demo](https://lgu-timetable-api.deta.dev/timetable?semester=3&degree=BSCS&section=A) |
 |  GET   | `/metadata`  |               \_                | all the metadata about `sections`, `semesters` and `degrees` | [demo](https://lgu-timetable-api.deta.dev/metadata) |                                 |
 
-## Credits
+## Technologies
 
 Technologies used in this project:
 
@@ -84,7 +84,7 @@ Technologies used in this project:
 [<img src='https://www.vectorlogo.zone/logos/expressjs/expressjs-ar21.svg' width=64 align='center' >](https://expressjs.com/)
 [<img src='https://www.vectorlogo.zone/logos/shieldsio/shieldsio-official.svg' width=64 align='center' >](https://shields.io/)
 [<img src='https://raw.githubusercontent.com/jsdom/jsdom/22f7c3c51829a6f14387f7a99e5cdf087f72e685/logo.svg' width=32 align='center' >](https://github.com/jsdom/jsdom)
-
+[<img src='https://www.vectorlogo.zone/logos/mongodb/mongodb-ar21.svg' width=64 align='center' >](https://https://www.mongodb.com/)
 
 ## Used By
 
