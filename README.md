@@ -78,12 +78,13 @@ You can [download](https://github.com/IIvexII/LGU-TimetableAPI/releases) the lat
 
 ## Credits
 
-This software uses the following open source packages:
+Technologies used in this project:
 
-- [Node.js](https://nodejs.org/)
-- [Express.js](https://expressjs.com/)
-- [Shield.io](https://shields.io/)
-- [JSDOM](https://github.com/jsdom/jsdom)
+[<img src='https://www.vectorlogo.zone/logos/nodejs/nodejs-ar21.svg' width=64 align='center' >](https://nodejs.org/)
+[<img src='https://www.vectorlogo.zone/logos/expressjs/expressjs-ar21.svg' width=64 align='center' >](https://expressjs.com/)
+[<img src='https://www.vectorlogo.zone/logos/shieldsio/shieldsio-official.svg' width=64 align='center' >](https://shields.io/)
+[<img src='https://raw.githubusercontent.com/jsdom/jsdom/22f7c3c51829a6f14387f7a99e5cdf087f72e685/logo.svg' width=32 align='center' >](https://github.com/jsdom/jsdom)
+
 
 ## Used By
 
