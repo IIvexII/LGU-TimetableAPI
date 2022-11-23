@@ -84,7 +84,9 @@ Technologies used in this project:
 [<img src='https://www.vectorlogo.zone/logos/expressjs/expressjs-ar21.svg' width=64 align='center' >](https://expressjs.com/)
 [<img src='https://www.vectorlogo.zone/logos/shieldsio/shieldsio-official.svg' width=64 align='center' >](https://shields.io/)
 [<img src='https://raw.githubusercontent.com/jsdom/jsdom/22f7c3c51829a6f14387f7a99e5cdf087f72e685/logo.svg' width=32 align='center' >](https://github.com/jsdom/jsdom)
+[<img src='https://assets.website-files.com/5fb3df03600a6e542f942a29/5fb3df03600a6e6221942a5d_mongoose_word_darkred.svg' width=64 align='center' >](https://www.mongoose-technologies.com/)
 [<img src='https://www.vectorlogo.zone/logos/mongodb/mongodb-ar21.svg' width=64 align='center' >](https://https://www.mongodb.com/)
+[<img src='https://www.vectorlogo.zone/logos/axios/axios-ar21.svg' width=64 align='center' >](https://https://www.https://axios.tech/)
 
 ## Used By
 
