@@ -26,7 +26,7 @@
   <a href="#how-to-use">How To Use</a> • 
   <a href="#download">Download</a> • 
   <a href="#routes">Routes</a> • 
-  <a href="#credits">Credits</a> • 
+  <a href="#technologies">Technologies</a> • 
   <a href="#used-by">Used By</a> • 
   <a href="#our-contributors">Contributors</a> •
   <a href="#license">License</a>
@@ -82,11 +82,11 @@ Technologies used in this project:
 
 [<img src='https://www.vectorlogo.zone/logos/nodejs/nodejs-ar21.svg' width=64 align='center' >](https://nodejs.org/)
 [<img src='https://www.vectorlogo.zone/logos/expressjs/expressjs-ar21.svg' width=64 align='center' >](https://expressjs.com/)
-[<img src='https://www.vectorlogo.zone/logos/shieldsio/shieldsio-official.svg' width=64 align='center' >](https://shields.io/)
 [<img src='https://raw.githubusercontent.com/jsdom/jsdom/22f7c3c51829a6f14387f7a99e5cdf087f72e685/logo.svg' width=32 align='center' >](https://github.com/jsdom/jsdom)
-[<img src='https://user-images.githubusercontent.com/41378765/203491947-b882beeb-22cc-4a34-84fa-c5d0eaad6066.png' width=64 align='center' >](https://www.mongoose-technologies.com/)
-[<img src='https://www.vectorlogo.zone/logos/mongodb/mongodb-ar21.svg' width=64 align='center' >](https://https://www.mongodb.com/)
-[<img src='https://www.vectorlogo.zone/logos/axios/axios-ar21.svg' width=64 align='center' >](https://https://www.https://axios.tech/)
+[<img src='https://www.vectorlogo.zone/logos/mongodb/mongodb-ar21.svg' width=64 align='center' >](https://mongodb.com/)
+[<img src='https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/mongoose/mongoose.png' width=64 align='center' >](https://mongoosejs.com/)
+[<img src='https://www.vectorlogo.zone/logos/axios/axios-ar21.svg' width=64 align='center' >](https://axios-http.com/)
+
 
 ## Used By
 
