@@ -26,7 +26,7 @@
   <a href="#how-to-use">How To Use</a> • 
   <a href="#download">Download</a> • 
   <a href="#routes">Routes</a> • 
-  <a href="#credits">Credits</a> • 
+  <a href="#technologies">Technologies</a> • 
   <a href="#used-by">Used By</a> • 
   <a href="#our-contributors">Contributors</a> •
   <a href="#license">License</a>
@@ -76,13 +76,12 @@ You can [download](https://github.com/IIvexII/LGU-TimetableAPI/releases) the lat
 |  GET   | `/timetable` | `semester`, `degree`, `section` |       all the degree programs in a specific semester.        | [demo](https://lgu-timetable-api.deta.dev/timetable?semester=3&degree=BSCS&section=A) |
 |  GET   | `/metadata`  |               \_                | all the metadata about `sections`, `semesters` and `degrees` | [demo](https://lgu-timetable-api.deta.dev/metadata) |                                 |
 
-## Credits
+## Technologies
 
 Technologies used in this project:
 
 [<img src='https://www.vectorlogo.zone/logos/nodejs/nodejs-ar21.svg' width=64 align='center' >](https://nodejs.org/)
 [<img src='https://www.vectorlogo.zone/logos/expressjs/expressjs-ar21.svg' width=64 align='center' >](https://expressjs.com/)
-[<img src='https://www.vectorlogo.zone/logos/shieldsio/shieldsio-official.svg' width=64 align='center' >](https://shields.io/)
 [<img src='https://raw.githubusercontent.com/jsdom/jsdom/22f7c3c51829a6f14387f7a99e5cdf087f72e685/logo.svg' width=32 align='center' >](https://github.com/jsdom/jsdom)
 [<img src='https://www.vectorlogo.zone/logos/mongodb/mongodb-ar21.svg' width=64 align='center' >](https://mongodb.com/)
 [<img src='https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/mongoose/mongoose.png' width=64 align='center' >](https://mongoosejs.com/)
