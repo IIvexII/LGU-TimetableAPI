@@ -87,6 +87,7 @@ Technologies used in this project:
 [<img src='https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/mongoose/mongoose.png' width=64 align='center' >](https://mongoosejs.com/)
 [<img src='https://www.vectorlogo.zone/logos/axios/axios-ar21.svg' width=64 align='center' >](https://axios-http.com/)
 
+
 ## Used By
 
 [LGU Timetable Front-end](https://github.com/Zain-ul-din/LGU-BetterTimeTable) - Lightweight timetable frontend on top of this API.
