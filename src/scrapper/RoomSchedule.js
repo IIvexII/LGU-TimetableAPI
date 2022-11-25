@@ -17,7 +17,7 @@ class RoomSchedule extends Scrapper {
   /*
    * @params none
    * @return Object<{
-   *    dayName: dayId
+   *    className: Array<lecture>
    *  }>
    */
   async _parse() {
