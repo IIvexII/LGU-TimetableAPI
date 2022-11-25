@@ -60,8 +60,7 @@ class RoomSchedule extends Scrapper {
           } else {
             // When all time slots are free
             lectureInfo = {
-              startTime: '08:00',
-              endTime: '16:00',
+              free: true,
             };
           }
 
