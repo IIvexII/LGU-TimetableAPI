@@ -33,9 +33,12 @@ class RoomSchedule extends Scrapper {
       const lectures = row.querySelectorAll('td');
 
       lectures.forEach((lecture) => {
+        // storing text content of itself
+        const lectureContent = lecture.textContent.trim();
+
         // If the table cell has X which
         // means no lecture at that time
-        if (lecture.textContent.trim() !== 'X') {
+        if (lectureContent !== 'X') {
           // time range is in 00:00 - 00:00
           // so this will split it into two part
           const timeRange = lecture
@@ -46,18 +49,27 @@ class RoomSchedule extends Scrapper {
           const startTime = timeRange && timeRange[0].trim();
           const endTime = timeRange && timeRange[1].trim();
 
+          let lectureInfo = {};
+
           if (startTime && endTime) {
-            const lectureInfo = {
+            // when there is a lecture
+            lectureInfo = {
               startTime: startTime,
               endTime: endTime,
             };
+          } else {
+            // When all time slots are free
+            lectureInfo = {
+              startTime: '08:00',
+              endTime: '16:00',
+            };
+          }
 
-            // push into array if exist or create otherwise
-            if (schedules[roomName]?.length > 0) {
-              schedules[roomName].push(lectureInfo);
-            } else {
-              schedules[roomName] = [lectureInfo];
-            }
+          // push into array if exist or create otherwise
+          if (schedules[roomName]?.length > 0) {
+            schedules[roomName].push(lectureInfo);
+          } else {
+            schedules[roomName] = [lectureInfo];
           }
         }
       });
