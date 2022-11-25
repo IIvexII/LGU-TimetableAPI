@@ -51,7 +51,7 @@ class FreeRooms {
               });
             }
             // When there is no first lecture
-            if (i - 1 === 0 && cStartTime !== uniStartTime) {
+            if (i - 1 === -1 && cStartTime !== uniStartTime) {
               FreeRoomModel.create({
                 day: day.day,
                 room: roomName,
