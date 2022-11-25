@@ -36,10 +36,6 @@ class RoomSchedule extends Scrapper {
         // If the table cell has X which
         // means no lecture at that time
         if (lecture.textContent.trim() !== 'X') {
-          // find and store the subject, teacher and time info.
-          const subject = lecture.querySelector('.style2');
-          const teacher = lecture.querySelector('.style4');
-
           // time range is in 00:00 - 00:00
           // so this will split it into two part
           const timeRange = lecture
@@ -50,10 +46,8 @@ class RoomSchedule extends Scrapper {
           const startTime = timeRange && timeRange[0].trim();
           const endTime = timeRange && timeRange[1].trim();
 
-          if (subject && teacher && startTime && endTime) {
+          if (startTime && endTime) {
             const lectureInfo = {
-              subject: subject.textContent.trim(),
-              teacher: teacher.textContent.trim(),
               startTime: startTime,
               endTime: endTime,
             };
