@@ -106,6 +106,4 @@ class FreeRooms {
   }
 }
 
-FreeRooms.populate('jjedrbhv59rmhc871qs1i7gv97');
-
 module.exports = { FreeRooms };
