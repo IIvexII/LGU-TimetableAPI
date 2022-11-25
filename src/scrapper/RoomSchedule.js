@@ -17,7 +17,7 @@ class RoomSchedule extends Scrapper {
   /*
    * @params none
    * @return Object<{
-   *    dayName: dayId
+   *    className: Array<lecture>
    *  }>
    */
   async _parse() {
@@ -33,13 +33,12 @@ class RoomSchedule extends Scrapper {
       const lectures = row.querySelectorAll('td');
 
       lectures.forEach((lecture) => {
+        // storing text content of itself
+        const lectureContent = lecture.textContent.trim();
+
         // If the table cell has X which
         // means no lecture at that time
-        if (lecture.textContent.trim() !== 'X') {
-          // find and store the subject, teacher and time info.
-          const subject = lecture.querySelector('.style2');
-          const teacher = lecture.querySelector('.style4');
-
+        if (lectureContent !== 'X') {
           // time range is in 00:00 - 00:00
           // so this will split it into two part
           const timeRange = lecture
@@ -50,20 +49,26 @@ class RoomSchedule extends Scrapper {
           const startTime = timeRange && timeRange[0].trim();
           const endTime = timeRange && timeRange[1].trim();
 
-          if (subject && teacher && startTime && endTime) {
-            const lectureInfo = {
-              subject: subject.textContent.trim(),
-              teacher: teacher.textContent.trim(),
+          let lectureInfo = {};
+
+          if (startTime && endTime) {
+            // when there is a lecture
+            lectureInfo = {
               startTime: startTime,
               endTime: endTime,
             };
+          } else {
+            // When all time slots are free
+            lectureInfo = {
+              free: true,
+            };
+          }
 
-            // push into array if exist or create otherwise
-            if (schedules[roomName]?.length > 0) {
-              schedules[roomName].push(lectureInfo);
-            } else {
-              schedules[roomName] = [lectureInfo];
-            }
+          // push into array if exist or create otherwise
+          if (schedules[roomName]?.length > 0) {
+            schedules[roomName].push(lectureInfo);
+          } else {
+            schedules[roomName] = [lectureInfo];
           }
         }
       });
