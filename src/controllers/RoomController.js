@@ -54,8 +54,7 @@ class RoomController {
       return time >= slot.startTime && time < slot.endTime;
     });
 
-    console.log(day, time, filteredSlots);
-    // res.send(freeSlots);
+    res.send(filteredSlots);
   }
   /*------------------------------
       Fix small issues of time
@@ -72,8 +71,5 @@ class RoomController {
     return fixedTime.join(':');
   }
 }
-RoomController.getSpecificFreeRooms({
-  query: { day: 'Monday', time: '09:30' },
-});
 
 module.exports = { RoomController };
