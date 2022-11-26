@@ -64,12 +64,4 @@ async function verifyParams(semesterName, degreeId, sectionId) {
   }
 }
 
-function stringArrToIntArr(arr) {
-  const parsedArr = arr.map((val) => {
-    return parseInt(val);
-  });
-
-  console.log(parsedArr);
-}
-
-module.exports = { calculateTime, createDate, verifyParams, stringArrToIntArr };
+module.exports = { calculateTime, createDate, verifyParams };
