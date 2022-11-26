@@ -45,13 +45,26 @@ class RoomController {
     const day = req.query?.day;
     const time = req.query?.time;
 
-    const freeSlots = await FreeRoom.find(
-      { day, startTime: time },
+    const AllfreeSlots = await FreeRoom.find(
+      { day },
       { _id: false, __v: false },
     );
 
-    res.send(freeSlots);
+    const filteredSlots = AllfreeSlots.filter((slot) => {
+      const time = slot.startTime.split(':').map((val) => {
+        return parseInt(val);
+      });
+      console.log(time);
+      return slot.startTime === '15:30';
+    });
+
+    // console.log(day, time, filteredSlots);
+    // res.send(freeSlots);
   }
 }
+
+RoomController.getSpecificFreeRooms({
+  query: { day: 'Monday', time: '08:00' },
+});
 
 module.exports = { RoomController };
