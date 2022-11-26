@@ -43,14 +43,32 @@ class RoomController {
   }
   static async getSpecificFreeRooms(req, res) {
     const day = req.query?.day;
-    const time = req.query?.time;
+    const time = RoomController._fixTime(req.query?.time);
 
-    const freeSlots = await FreeRoom.find(
-      { day, startTime: time },
+    const AllfreeSlots = await FreeRoom.find(
+      { day },
       { _id: false, __v: false },
     );
 
-    res.send(freeSlots);
+    const filteredSlots = AllfreeSlots.filter((slot) => {
+      return time >= slot.startTime && time < slot.endTime;
+    });
+
+    res.send(filteredSlots);
+  }
+  /*------------------------------
+      Fix small issues of time
+    ------------------------------
+  */
+  static _fixTime(time) {
+    const timeArr = time.split(':');
+    const fixedTime = [];
+
+    for (let i = 0; i < timeArr.length; i++) {
+      // add prefix 0 if length is not 2
+      fixedTime.push(String(timeArr[i]).padStart(2, '0'));
+    }
+    return fixedTime.join(':');
   }
 }
 
