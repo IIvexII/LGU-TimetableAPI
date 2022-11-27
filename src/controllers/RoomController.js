@@ -22,11 +22,6 @@ class RoomController {
     res.send(rooms);
   }
   static async getFreeRooms(req, res) {
-    const freeRooms = await RoomController._findAllFreeRooms();
-
-    res.send(freeRooms);
-  }
-  static async getSpecificFreeRooms(req, res) {
     const day = req && req.query?.day;
     const time = RoomController._fixTime(req.query?.time);
 
