@@ -51,7 +51,7 @@ class RoomController {
         return tFilter && bFilter;
       } else if (time) {
         return tFilter;
-      } else if (bFilter) {
+      } else if (building) {
         return bFilter;
       }
 
