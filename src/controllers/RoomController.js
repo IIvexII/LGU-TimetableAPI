@@ -22,17 +22,18 @@ class RoomController {
     res.send(rooms);
   }
   static async getFreeRooms(req, res) {
+    const building = req.query?.building;
     const day = req && req.query?.day;
     const time = RoomController._fixTime(req.query?.time);
 
     const filteredSlots =
       day || time
-        ? await RoomController._findFreeRooms(day, time)
+        ? await RoomController._findFreeRooms(day, time, building)
         : await RoomController._findAllFreeRooms();
 
     res.send(filteredSlots);
   }
-  static async _findFreeRooms(day, time) {
+  static async _findFreeRooms(day, time, building) {
     // if day is not defined then find free rooms for all 7 days
     const AllfreeSlots = await FreeRoom.find(day ? { day } : {}, {
       _id: false,
@@ -40,9 +41,18 @@ class RoomController {
     });
 
     const filteredSlots = AllfreeSlots.filter((slot) => {
-      // filter the free slots with time
-      if (time) {
-        return time >= slot.startTime && time < slot.endTime;
+      // time filter
+      const tFilter = time && time >= slot.startTime && time < slot.endTime;
+      // building filter
+      const bFilter = building && new RegExp(building, 'ig').test(slot.room);
+
+      // filter the free slots with time or building
+      if (time && building) {
+        return tFilter && bFilter;
+      } else if (time) {
+        return tFilter;
+      } else if (bFilter) {
+        return bFilter;
       }
 
       // if the time is not given then don't
