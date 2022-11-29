@@ -64,4 +64,18 @@ async function verifyParams(semesterName, degreeId, sectionId) {
   }
 }
 
-module.exports = { calculateTime, createDate, verifyParams };
+function fixTime(time) {
+  if (time) {
+    const timeArr = time.split(':');
+    const fixedTime = [];
+
+    for (let i = 0; i < timeArr.length; i++) {
+      // add prefix 0 if length is not 2
+      fixedTime.push(String(timeArr[i]).padStart(2, '0'));
+    }
+    return fixedTime.join(':');
+  }
+  return;
+}
+
+module.exports = { calculateTime, createDate, verifyParams, fixTime };

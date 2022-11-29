@@ -1,4 +1,5 @@
 const { RoomDay, Room, FreeRoom } = require('../models');
+const { fixTime } = require('../utils');
 
 class RoomController {
   static async getDays(req, res) {
@@ -24,7 +25,7 @@ class RoomController {
   static async getFreeRooms(req, res) {
     const building = req.query?.building;
     const day = req && req.query?.day;
-    const time = RoomController._fixTime(req.query?.time);
+    const time = fixTime(req.query?.time);
 
     const filteredSlots =
       day || time
@@ -83,19 +84,6 @@ class RoomController {
     }
 
     return freeRooms;
-  }
-  static _fixTime(time) {
-    if (time) {
-      const timeArr = time.split(':');
-      const fixedTime = [];
-
-      for (let i = 0; i < timeArr.length; i++) {
-        // add prefix 0 if length is not 2
-        fixedTime.push(String(timeArr[i]).padStart(2, '0'));
-      }
-      return fixedTime.join(':');
-    }
-    return;
   }
 }
 
