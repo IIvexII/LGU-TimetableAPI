@@ -32,7 +32,7 @@ class RoomController {
   static async getRooms(req, res) {
     const arr = await Room.find({});
 
-    const rooms = arrayToObject(arr, 'day', '_id');
+    const rooms = arrayToObject(arr, 'room', '_id');
 
     res.send(rooms);
   }

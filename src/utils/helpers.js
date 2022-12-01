@@ -82,7 +82,7 @@ function arrayToObject(arr, keyName, valueName) {
   const obj = {};
 
   for (let element in arr) {
-    obj[arr[element][keyName]] = arr[key][valueName];
+    obj[arr[element][keyName]] = arr[element][valueName];
   }
 
   return obj;
