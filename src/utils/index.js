@@ -1,8 +1,10 @@
-const { calculateTime, createDate, fixTime } = require('./helpers');
 const { Sync } = require('./Sync');
+const helpers = require('./helpers');
+
 module.exports = {
-  calculateTime,
-  createDate,
+  calculateTime: helpers.calculateTime,
+  createDate: helpers.createDate,
+  fixTime: helpers.fixTime,
+  arrayToObject: helpers.arrayToObject,
   Sync,
-  fixTime,
 };

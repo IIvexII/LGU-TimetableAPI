@@ -78,4 +78,20 @@ function fixTime(time) {
   return;
 }
 
-module.exports = { calculateTime, createDate, verifyParams, fixTime };
+function arrayToObject(arr, keyName, valueName) {
+  const obj = {};
+
+  for (let element in arr) {
+    obj[arr[element][keyName]] = arr[key][valueName];
+  }
+
+  return obj;
+}
+
+module.exports = {
+  calculateTime,
+  createDate,
+  verifyParams,
+  fixTime,
+  arrayToObject,
+};

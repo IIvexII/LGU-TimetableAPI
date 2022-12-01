@@ -1,25 +1,39 @@
 const { RoomDay, Room, FreeRoom } = require('../models');
-const { fixTime } = require('../utils');
+const { fixTime, arrayToObject } = require('../utils');
 
 class RoomController {
+  /* ---------------------------
+   * getDays() method response
+   * days as single object
+   * ---------------------------
+   *
+   * @params request, response
+   * @return Object<{
+   *  dayName: dayId
+   * }>
+   */
   static async getDays(req, res) {
-    const days = {};
+    const arr = await RoomDay.find({});
 
-    const data = await RoomDay.find({});
+    const days = arrayToObject(arr, 'day', '_id');
 
-    for (let key in data) {
-      days[data[key].day] = data[key]._id;
-    }
     res.send(days);
   }
+  /* ---------------------------
+   * getRooms() method response
+   * all rooms in single object
+   * ---------------------------
+   *
+   * @params request, response
+   * @return Object<{
+   *  roomName: roomId
+   * }>
+   */
   static async getRooms(req, res) {
-    const rooms = {};
+    const arr = await Room.find({});
 
-    const data = await Room.find({});
+    const rooms = arrayToObject(arr, 'day', '_id');
 
-    for (let key in data) {
-      rooms[data[key].room] = data[key]._id;
-    }
     res.send(rooms);
   }
   static async getFreeRooms(req, res) {
