@@ -8,9 +8,7 @@ class RoomController {
    * ---------------------------
    *
    * @params request, response
-   * @return Object<{
-   *  dayName: dayId
-   * }>
+   * @return Object<{ dayName: dayId }>
    */
   static async getDays(req, res) {
     const arr = await RoomDay.find({});
@@ -25,9 +23,7 @@ class RoomController {
    * ---------------------------
    *
    * @params request, response
-   * @return Object<{
-   *  roomName: roomId
-   * }>
+   * @return Object<{ roomName: roomId }>
    */
   static async getRooms(req, res) {
     const arr = await Room.find({});
@@ -36,17 +32,36 @@ class RoomController {
 
     res.send(rooms);
   }
+  /* ---------------------------------
+   * getFreeRooms() method response
+   * all free rooms that does not
+   * have lecture in it filtering the
+   * list via day, time or building.
+   * ---------------------------------
+   *
+   * @params request, response
+   * @return Object<{ dayName: Array<Room> }> or Array<Room>
+   */
   static async getFreeRooms(req, res) {
     const building = req.query?.building;
     const day = req && req.query?.day;
     const time = fixTime(req.query?.time);
 
-    const filteredSlots =
-      day || time
-        ? await RoomController._findFreeRooms(day, time, building)
-        : await RoomController._findAllFreeRooms();
+    let rooms = [];
 
-    res.send(filteredSlots);
+    /* -------------------------------------
+     * when day or time is provided then
+     * give rooms that are filtered
+     * -------------------------------------*/
+    if (day || time) {
+      // filtered rooms by day, time or building(NB || OB)
+      rooms = await RoomController._findFreeRooms(day, time, building);
+    } else {
+      // all rooms
+      rooms = await RoomController._findAllFreeRooms();
+    }
+
+    res.send(rooms);
   }
   static async _findFreeRooms(day, time, building) {
     // if day is not defined then find free rooms for all 7 days
