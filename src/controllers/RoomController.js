@@ -65,11 +65,11 @@ class RoomController {
   }
   /* ---------------------------------------
    * _findFreeRooms() is a private method
-   *  that return all free rooms.
+   *  that return free rooms via filters
    * ---------------------------------------
    *
    * @params day, time, building
-   * @return Object<{ dayName: Array<Room> }> or Array<Room>
+   * @return Array<Room>
    */
   static async _findFreeRooms(day, time, building) {
     //
@@ -90,22 +90,27 @@ class RoomController {
 
     return filteredSlots;
   }
+  /* ---------------------------------------
+   * _findAllFreeRooms() is a private method
+   *  that return all free rooms.
+   * ---------------------------------------
+   *
+   * @params day, time, building
+   * @return Object<{ dayName: Array<Room> }>
+   */
   static async _findAllFreeRooms() {
     const freeRooms = {};
 
     const freeSlots = await FreeRoom.find({});
 
-    for (let freeSlot of freeSlots) {
-      const freeRoom = {
-        room: freeSlot.room,
-        startTime: freeSlot.startTime,
-        endTime: freeSlot.endTime,
-      };
+    // prepare an object containing all the free rooms
+    for (let { day, room, startTime, endTime } of freeSlots) {
+      const freeRoom = { room, startTime, endTime };
 
-      if (freeRooms[freeSlot.day]?.length > 0) {
-        freeRooms[freeSlot.day].push(freeRoom);
+      if (freeRooms[day]) {
+        freeRooms[day].push(freeRoom);
       } else {
-        freeRooms[freeSlot.day] = [freeRoom];
+        freeRooms[day] = [freeRoom];
       }
     }
 
