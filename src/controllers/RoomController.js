@@ -1,101 +1,120 @@
 const { RoomDay, Room, FreeRoom } = require('../models');
+const { fixTime, arrayToObject } = require('../utils');
 
 class RoomController {
+  /* ---------------------------
+   * getDays() method response
+   * days as single object
+   * ---------------------------
+   *
+   * @params request, response
+   * @response Object<{ dayName: dayId }>
+   */
   static async getDays(req, res) {
-    const days = {};
+    const arr = await RoomDay.find({});
 
-    const data = await RoomDay.find({});
+    const days = arrayToObject(arr, 'day', '_id');
 
-    for (let key in data) {
-      days[data[key].day] = data[key]._id;
-    }
     res.send(days);
   }
+  /* ---------------------------
+   * getRooms() method response
+   * all rooms in single object
+   * ---------------------------
+   *
+   * @params request, response
+   * @response Object<{ roomName: roomId }>
+   */
   static async getRooms(req, res) {
-    const rooms = {};
+    const arr = await Room.find({});
 
-    const data = await Room.find({});
+    const rooms = arrayToObject(arr, 'room', '_id');
 
-    for (let key in data) {
-      rooms[data[key].room] = data[key]._id;
-    }
     res.send(rooms);
   }
+  /* ---------------------------------
+   * getFreeRooms() method response
+   * all free rooms that does not
+   * have lecture in it filtering the
+   * list via day, time or building.
+   * ---------------------------------
+   *
+   * @params request, response
+   * @response Object<{ dayName: Array<Room> }> or Array<Room>
+   */
   static async getFreeRooms(req, res) {
     const building = req.query?.building;
     const day = req && req.query?.day;
-    const time = RoomController._fixTime(req.query?.time);
+    const time = fixTime(req.query?.time);
 
-    const filteredSlots =
-      day || time
-        ? await RoomController._findFreeRooms(day, time, building)
-        : await RoomController._findAllFreeRooms();
+    let rooms = [];
 
-    res.send(filteredSlots);
+    /* -------------------------------------
+     * when day or time is provided then
+     * give rooms that are filtered
+     * -------------------------------------*/
+    if (day || time) {
+      // filtered rooms by day, time or building(NB || OB)
+      rooms = await RoomController._findFreeRooms(day, time, building);
+    } else {
+      // all rooms
+      rooms = await RoomController._findAllFreeRooms();
+    }
+
+    res.send(rooms);
   }
+  /* ---------------------------------------
+   * _findFreeRooms() is a private method
+   *  that return free rooms via filters
+   * ---------------------------------------
+   *
+   * @params day, time, building
+   * @return Array<Room>
+   */
   static async _findFreeRooms(day, time, building) {
-    // if day is not defined then find free rooms for all 7 days
-    const AllfreeSlots = await FreeRoom.find(day ? { day } : {}, {
-      _id: false,
-      __v: false,
-    });
+    //
+    const dayFilter = day ? { day } : {};
 
-    const filteredSlots = AllfreeSlots.filter((slot) => {
+    // if day is not defined then find free rooms for all 7 days
+    const slots = await FreeRoom.find(dayFilter, { _id: false, __v: false });
+
+    const filteredSlots = slots.filter((slot) => {
       // time filter
       const tFilter = time && time >= slot.startTime && time < slot.endTime;
       // building filter
       const bFilter = building && new RegExp(building, 'ig').test(slot.room);
 
-      // filter the free slots with time or building
-      if (time && building) {
-        return tFilter && bFilter;
-      } else if (time) {
-        return tFilter;
-      } else if (building) {
-        return bFilter;
-      }
-
-      // if the time is not given then don't
-      // apply filter and return all the available
-      // time slots
-      return slot;
+      // filter the free slots with time or building, return
+      return (tFilter && bFilter) || tFilter || bFilter;
     });
 
     return filteredSlots;
   }
+  /* ---------------------------------------
+   * _findAllFreeRooms() is a private method
+   *  that return all free rooms.
+   * ---------------------------------------
+   *
+   * @params day, time, building
+   * @return Object<{ dayName: Array<Room> }>
+   */
   static async _findAllFreeRooms() {
     const freeRooms = {};
 
     const freeSlots = await FreeRoom.find({});
 
-    for (let freeSlot of freeSlots) {
-      const freeRoom = {
-        room: freeSlot.room,
-        startTime: freeSlot.startTime,
-        endTime: freeSlot.endTime,
-      };
+    // prepare an object containing all the free rooms
+    for (let { day, room, startTime, endTime } of freeSlots) {
+      const freeRoom = { room, startTime, endTime };
 
-      if (freeRooms[freeSlot.day]?.length > 0) {
-        freeRooms[freeSlot.day].push(freeRoom);
+      if (freeRooms[day]) {
+        freeRooms[day].push(freeRoom);
       } else {
-        freeRooms[freeSlot.day] = [freeRoom];
+        freeRooms[day] = [freeRoom];
       }
     }
 
     return freeRooms;
-  }
-  static _fixTime(time) {
-    if (time) {
-      const timeArr = time.split(':');
-      const fixedTime = [];
-
-      for (let i = 0; i < timeArr.length; i++) {
-        // add prefix 0 if length is not 2
-        fixedTime.push(String(timeArr[i]).padStart(2, '0'));
-      }
-      return fixedTime.join(':');
-    }
-    return;
   }
 }
 
