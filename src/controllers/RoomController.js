@@ -8,7 +8,7 @@ class RoomController {
    * ---------------------------
    *
    * @params request, response
-   * @return Object<{ dayName: dayId }>
+   * @response Object<{ dayName: dayId }>
    */
   static async getDays(req, res) {
     const arr = await RoomDay.find({});
@@ -23,7 +23,7 @@ class RoomController {
    * ---------------------------
    *
    * @params request, response
-   * @return Object<{ roomName: roomId }>
+   * @response Object<{ roomName: roomId }>
    */
   static async getRooms(req, res) {
     const arr = await Room.find({});
@@ -40,7 +40,7 @@ class RoomController {
    * ---------------------------------
    *
    * @params request, response
-   * @return Object<{ dayName: Array<Room> }> or Array<Room>
+   * @response Object<{ dayName: Array<Room> }> or Array<Room>
    */
   static async getFreeRooms(req, res) {
     const building = req.query?.building;
@@ -63,32 +63,29 @@ class RoomController {
 
     res.send(rooms);
   }
+  /* ---------------------------------------
+   * _findFreeRooms() is a private method
+   *  that return all free rooms.
+   * ---------------------------------------
+   *
+   * @params day, time, building
+   * @return Object<{ dayName: Array<Room> }> or Array<Room>
+   */
   static async _findFreeRooms(day, time, building) {
-    // if day is not defined then find free rooms for all 7 days
-    const AllfreeSlots = await FreeRoom.find(day ? { day } : {}, {
-      _id: false,
-      __v: false,
-    });
+    //
+    const dayFilter = day ? { day } : {};
 
-    const filteredSlots = AllfreeSlots.filter((slot) => {
+    // if day is not defined then find free rooms for all 7 days
+    const slots = await FreeRoom.find(dayFilter, { _id: false, __v: false });
+
+    const filteredSlots = slots.filter((slot) => {
       // time filter
       const tFilter = time && time >= slot.startTime && time < slot.endTime;
       // building filter
       const bFilter = building && new RegExp(building, 'ig').test(slot.room);
 
-      // filter the free slots with time or building
-      if (time && building) {
-        return tFilter && bFilter;
-      } else if (time) {
-        return tFilter;
-      } else if (building) {
-        return bFilter;
-      }
-
-      // if the time is not given then don't
-      // apply filter and return all the available
-      // time slots
-      return slot;
+      // filter the free slots with time or building, return
+      return (tFilter && bFilter) || tFilter || bFilter;
     });
 
     return filteredSlots;
