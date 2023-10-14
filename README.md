@@ -1,3 +1,9 @@
+# ⚠ No longer maintained ⚠ check out [new APIS](https://www.lgutimetable.live/developer) 
+
+```diff
++ This repository is still worth checking if you want to scrap data on your own
+```
+
 <h1 align="center">
   <br>
   <a href="https://timetable.lgu.edu.pk"><img src="https://user-images.githubusercontent.com/41378765/200201356-6ebba91a-dec8-4314-93ff-3b7268c4274c.png" alt="Lahore Garrison University" width="500"></a>
