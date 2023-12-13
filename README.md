@@ -1,4 +1,4 @@
-# ⚠ No longer maintained ⚠ check out [new APIS](https://www.lgutimetable.live/developer) 
+# ⚠ No longer maintained ⚠ check out [new APIS](https://www.lgutimetable.online/developer) 
 
 ```diff
 + This repository is still worth checking if you want to scrap data on your own
