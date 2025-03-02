@@ -1,4 +1,4 @@
-# ⚠ No longer maintained ⚠ check out [new APIS](https://www.lgutimetable.online/developer) 
+# ⚠ No longer maintained ⚠ check out [new APIS](https://lgutimetable.vercel.app/developer) 
 
 ```diff
 + This repository is still worth checking if you want to scrap data on your own
